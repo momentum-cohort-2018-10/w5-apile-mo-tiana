@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "/Users/oglatzhaus/.local/share/virtualenvs/momentum_projects-7bNoYpEJ/bin/python",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": false
+}
