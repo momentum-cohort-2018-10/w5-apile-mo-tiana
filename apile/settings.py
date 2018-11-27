@@ -37,7 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # third party apps
+    'django_extensions'
     'registration',
+
+    # my apps
     'pile',
 ]
 
