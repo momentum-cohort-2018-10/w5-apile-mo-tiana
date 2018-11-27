@@ -37,7 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # third party apps
     'registration',
+    'django_extensions',
+    'mimesis',
+
+    # my apps
     'pile',
 ]
 
