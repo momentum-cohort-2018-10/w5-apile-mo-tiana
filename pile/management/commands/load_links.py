@@ -1,5 +1,9 @@
 from django.core.management.base import BaseCommand
-from mimesis import Person, Text, 
+from mimesis import Person, Text
+from pile.models import Post
+import csv
+from django.contrib.auth.models import User
+
 
 
 class Command(BaseCommand):
@@ -10,4 +14,13 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        raise NotImplementedError()
+
+        print("Deleting Posts...")
+        Post.objects.all().delete()
+        
+        posts = []
+        for post in links.csv:
+            post = Post.objects.create(**post)
+            posts.append(post)
+        print("Posts loaded!")
+
