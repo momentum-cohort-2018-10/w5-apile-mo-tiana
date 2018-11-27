@@ -1,9 +1,17 @@
 {
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "python.pythonPath": "/Users/tianahorn/.local/share/virtualenvs/w5-apile-mo-tiana-PBppdHBi/bin/python",
+=======
+    "python.pythonPath": "/Users/tianahorn/.local/share/virtualenvs/w5-apile-mo-tiana-Yx3q5s4M/bin/python",
+>>>>>>> 64fc163c89f2ff7110bd9148d8c1044974e9c883
+=======
 
     "python.pythonPath": "/Users/tianahorn/.local/share/virtualenvs/w5-apile-mo-tiana-PBppdHBi/bin/python",
 
     "python.pythonPath": "/Users/tianahorn/.local/share/virtualenvs/w5-apile-mo-tiana-Yx3q5s4M/bin/python",
 
+>>>>>>> master
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": false
 }
