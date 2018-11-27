@@ -11,10 +11,10 @@
         {% endblock title%}
     </title>
 
-
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 <article class="cf ph3 ph5-ns pv5 vh-100 dt w-100">
+
 
     {% block header %}
 
@@ -23,18 +23,26 @@
     {% endblock header %}
 </head>
 
-<a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'home' %}">Home</a>
-{% if user.is_authenticated %}
+
+<body class="georgia" >
+    <header>
+        <h3>M&T News!</h3>
+        <nav>
+    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'home' %}">Home</a>
+    {% if user.is_authenticated %}
     <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'auth_logout' %}">Sign Out</a>
-{% else %}
+    {% else %}
     <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'auth_login' %}">Sign In</a>
     <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'registration_register' %}">Sign Up</a>
-{% endif %}
-<body class="georgia" >
+    {% endif %}
 
+        </nav>
+    </header>
+  
     {% block content %}{% endblock content %}
     {% block footer %}{% endblock footer %}
 </body>
 </article>
 
 </html>
+
