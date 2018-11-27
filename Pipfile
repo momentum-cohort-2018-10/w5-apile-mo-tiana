@@ -8,6 +8,10 @@ django = "*"
 django-registration-redux = "==2.0"
 django-extensions = "*"
 mimesis = "*"
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 
 [dev-packages]
 pylint = "*"

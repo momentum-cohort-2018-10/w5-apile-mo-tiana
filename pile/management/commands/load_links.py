@@ -19,8 +19,8 @@ class Command(BaseCommand):
         Post.objects.all().delete()
         
         posts = []
-        for post in links.csv:
-            post = Post.objects.create(**post)
-            posts.append(post)
+
+        post = Post.objects.create(**post)
+        posts.append(post)
         print("Posts loaded!")
 
