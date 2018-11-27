@@ -6,35 +6,43 @@
 
     <title>
         {% block title%}
-            M&T News
+       <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+
         {% endblock title%}
     </title>
-    <link rel="stylesheet" href="{% static 'css/style.css'%}" /> 
+
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+<article class="cf ph3 ph5-ns pv5 vh-100 dt w-100">
+
 
     {% block header %}
+
+
+
     {% endblock header %}
 </head>
 
-<body>
+
+<body class="georgia" >
     <header>
         <h3>M&T News!</h3>
         <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                {% if user.is_authenticated %}
-                <li><a href="{% url 'auth_logout' %}">Sign Out</a></li>
-                {% else %}
-                <li><a href="{% url 'auth_login' %}">Sign In</a></li>
-                <li><a href="{% url 'registration_register' %}">Sign Up</a></li>
-                {% endif %}
-            </ul>
+    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'home' %}">Home</a>
+    {% if user.is_authenticated %}
+    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'auth_logout' %}">Sign Out</a>
+    {% else %}
+    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'auth_login' %}">Sign In</a>
+    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'registration_register' %}">Sign Up</a>
+    {% endif %}
+
         </nav>
     </header>
-
-    {% block content %}
-    {% endblock content %}
-
-    {% block footer %}  
-    {% endblock footer %}
+  
+    {% block content %}{% endblock content %}
+    {% block footer %}{% endblock footer %}
 </body>
+</article>
+
 </html>
+
