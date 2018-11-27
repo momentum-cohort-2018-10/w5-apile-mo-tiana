@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 def index(request):
-    posts = Post.objects.all()
-    return render(request, 'index.html', {
-        'posts': posts,
-    })
+    # posts = Post.objects.all()
+    return render(request, 'index.html'
+    # , {'posts': posts,}
+    )

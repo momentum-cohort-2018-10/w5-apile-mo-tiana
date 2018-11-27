@@ -20,10 +20,9 @@ from django.views.generic import TemplateView, RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from pile import views
+from pile.backends import MyRegistrationView
 from django.contrib.auth.views import (PasswordResetView, PasswordResetConfirmView, PasswordResetCompleteView, PasswordResetDoneView, )
 
-
-from pile.backends import MyRegistrationView
 
 
 urlpatterns = [
@@ -40,5 +39,6 @@ urlpatterns = [
     path('accounts/register/', MyRegistrationView.as_view(), name='registration_register'),
 
     path('accounts/', include('registration.backends.simple.urls')),
+
     path('admin/', admin.site.urls),
 ]
