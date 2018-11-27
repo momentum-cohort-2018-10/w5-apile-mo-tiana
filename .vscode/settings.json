@@ -1,5 +1,9 @@
 {
+
+    "python.pythonPath": "/Users/tianahorn/.local/share/virtualenvs/w5-apile-mo-tiana-PBppdHBi/bin/python",
+
     "python.pythonPath": "/Users/tianahorn/.local/share/virtualenvs/w5-apile-mo-tiana-Yx3q5s4M/bin/python",
+
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": false
 }
