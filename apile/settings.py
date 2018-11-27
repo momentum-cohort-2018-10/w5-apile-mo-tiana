@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # third party apps
-    'django_extensions'
+    'django_extensions',
     'registration',
+    'mimesis',
 
     # my apps
     'pile',
