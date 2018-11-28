@@ -17,4 +17,7 @@ class Comment(models.Model):
 
 class Favorite(models.Model):
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    post = models.ForeignKey(to=Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(to=Post, on_delete=models.CASCADE, related_name='favorites')
+
+    class Meta:
+        unique_together = ('post', 'author',)
