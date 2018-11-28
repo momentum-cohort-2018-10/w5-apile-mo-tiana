@@ -9,6 +9,8 @@ django-registration-redux = "==2.0"
 django-extensions = "*"
 mimesis = "*"
 psycopg2 = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 [dev-packages]
 pylint = "*"
