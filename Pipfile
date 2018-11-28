@@ -12,10 +12,13 @@ mimesis = "*"
 django-extensions = "*"
 mimesis = "*"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> master
 >>>>>>> 739983e5dbda39caed7832a61d5309776aa6a90b
+=======
+>>>>>>> e22c69769462569172f306914f397489549df13e
 
 [dev-packages]
 pylint = "*"
