@@ -6,16 +6,9 @@ name = "pypi"
 [packages]
 django = "*"
 django-registration-redux = "==2.0"
-<<<<<<< HEAD
-mimesis = "*"
-=======
 django-extensions = "*"
 mimesis = "*"
-<<<<<<< HEAD
-=======
-
->>>>>>> master
->>>>>>> 739983e5dbda39caed7832a61d5309776aa6a90b
+psycopg2 = "*"
 
 [dev-packages]
 pylint = "*"
