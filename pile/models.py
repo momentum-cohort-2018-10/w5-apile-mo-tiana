@@ -8,6 +8,13 @@ class Post(models.Model):
     link = models.URLField(unique=True)
     description = models.TextField()
 
+    # def create(cls, title):
+    #     post = cls(title=title)
+
+
+    def __str__(self):
+        return self.title
+
 
 class Comment(models.Model):
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
