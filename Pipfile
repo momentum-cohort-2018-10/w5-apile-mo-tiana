@@ -6,9 +6,11 @@ name = "pypi"
 [packages]
 django = "*"
 django-registration-redux = "==2.0"
-mimesis = "*"
 django-extensions = "*"
-
+mimesis = "*"
+psycopg2 = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 [dev-packages]
 pylint = "*"
