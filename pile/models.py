@@ -7,6 +7,7 @@ class Post(models.Model):
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
     link = models.URLField(unique=True)
     description = models.TextField()
+    slug = models.SlugField(default=None, unique=True)
 
     # def create(cls, title):
     #     post = cls(title=title)

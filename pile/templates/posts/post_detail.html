@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ post.title }} - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+    <h3> {{ post.title }}</h3>
+    <p> {{ post.author }}</p>
+    <p> {{ post.description }}</p>
+    <p> {{ post.link }}</p>
+    {% if user == post.user %}
+        <p>
+            <a href="{% url 'edit_post' slug=post.slug %}">
+            Edit Me!
+            </a>
+        </p>
+    {% endif %}
+{% endblock content %}
+
+    
