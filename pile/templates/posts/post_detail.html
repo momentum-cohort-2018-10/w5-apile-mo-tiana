@@ -11,6 +11,18 @@
     <p> Link: {{ post.link }}</p>
     <p> Slug: {{ post.slug }}</p>
 
+    <div><form role="form" action="" method="POST">
+        {% csrf_token %}
+        {{ comment_form }}
+        <button type='submit'>Post Comment</button>
+        </form>
+    </div>
+
+    <div>
+        {% for comment in comments %}
+            <p>{{ comment.new_comment }}</p>
+            <p>{{ comment.author }}</p>
+        {% endfor %}
     {% if user == post.author %}
         <p>
             <a href="{% url 'edit_post' slug=post.slug %}">
@@ -18,7 +30,7 @@
             </a>
         </p>
         <p>
-            <a href"{% url 'index' %}">Delete Post</a>
+            {% comment %} <a href"{% url 'index' %}">Delete Post</a> {% endcomment %}
         </p>
     {% endif %}
 {% endblock content %}

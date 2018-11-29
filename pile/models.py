@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Post(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=500)
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
     link = models.URLField(unique=True)
     description = models.TextField()
