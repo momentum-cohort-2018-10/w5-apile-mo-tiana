@@ -7,19 +7,25 @@ from pile.models import Post, Comment, Favorite
 from django.contrib.auth import authenticate, login
 from django.db.models import Count
 from django.contrib import messages
-from pile.forms import PostForm
+from pile.forms import PostForm, CommentForm
 
 # Create your views here.
 def index(request):
     posts = Post.objects.all()
+#     form = CommentForm(request.POST)
     return render(request, 'index.html', {
-         'posts': posts,}
+         'posts': posts,
+          }
     )
 
 def post_detail(request, slug):
      post = Post.objects.get(slug=slug)
+     form = CommentForm(request.POST)
+     comments = Comment.objects.all()
      return render(request, 'posts/post_detail.html', {
-          'post': post,
+          'post': post, 
+          'comment_form': form,
+          'comments': comments,
      })
 
 @login_required
@@ -59,6 +65,25 @@ def edit_post(request, slug):
                "form": form,
           })
 
+
+def create_comment(request):
+     form_class = CommentForm
+     if request.method == "POST":
+          form = form_class(request.POST)
+     # comment_form = CommentForm(request.POST)
+     if comment_form.is_valid():
+          comment = form.save(commit=False)
+          comment.author = request.user
+          Comment.objects.create(user=user, comment=comment)
+          comment.save()
+          return redirect("post_detail", slug=slug)
+     else:
+          form = form_class()
+
+     return render(request, 'index.html', {
+          "form": form,
+     })
+
 def favorites_list(request):
      posts = request.user.favorite_posts.all()
      return render_post_list(request, 'my favorite posts', posts)
@@ -86,3 +111,4 @@ def change_favorite(request, post_id):
           post.favorites.create(user=request.user)
 
      return redirect(f'/#post-{post.pk}')
+
