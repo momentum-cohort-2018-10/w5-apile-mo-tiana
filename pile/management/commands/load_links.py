@@ -1,6 +1,8 @@
+from django.template.defaultfilters import slugify
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from mimesis import Text, Person, Internet, Food
+from mimesis import Text, Person, Internet
+# from pile.models import Post
 
 
 person = Person('en')
@@ -30,50 +32,53 @@ class Command(BaseCommand):
         users = []
         person = Person()
         food = Food('en')
-        
+    
+
         for _ in range(5):
             user = User.objects.create_user(person.username(), person.email(), 
                                             'password' )
             users.append(user)
-        print("Users created")        
+            print("Users created") 
+            print(users)
+            # return users   
 
         for user in users:
-                initial_posts = [
-                { "title": text.title(),
-                "author": user,
-                "link": internet.home_page(),
-                "description": text.quote(),
-                "slug": food.vegetable()
-                }, 
-                { "title": text.title(),
-                "author": user,
-                "link": internet.home_page(),
-                "description": text.quote(),
-                "slug": food.vegetable()
-                }, 
-                { "title": text.title(),
-                "author": user,
-                "link": internet.home_page(),
-                "description": text.quote(),
-                "slug": food.vegetable()
-                }, 
-                { "title": text.title(),
-                "author": user,
-                "link": internet.home_page(),
-                "description": text.quote(),
-                "slug": food.vegetable()
-                }, 
-                { "title": text.title(),
-                "author": user,
-                "link": internet.home_page(),
-                "description": text.quote(),
-                "slug": food.vegetable()
-                }
-            ]       
+            initial_posts = [
+            { "title": text.title(),
+            "author": users[0],
+            "link": internet.home_page(),
+            "description": text.quote(),
+            "slug": food.vegetable()
+            },
+            { "title": text.title(),
+            "author": users[1],
+            "link": internet.home_page(),
+            "description": text.quote(),
+            "slug": food.vegetable()
+            }, 
+            { "title": text.title(),
+            "author": users[2],
+            "link": internet.home_page(),
+            "description": text.quote(),
+            "slug": food.vegetable()
+            }, 
+            { "title": text.title(),
+            "author": users[3],
+            "link": internet.home_page(),
+            "description": text.quote(),
+            "slug": food.vegetable()
+            }, 
+            { "title": text.title(),
+            "author": users[4],
+            "link": internet.home_page(),
+            "description": text.quote(),
+            "slug": food.vegetable()
+            }
+        ]       
 
         print("Deleting Posts...")
         Post.objects.all().delete()
-        
+    
         posts = []
         for post_data in initial_posts:
             post = Post.objects.create(**post_data)
