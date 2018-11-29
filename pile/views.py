@@ -19,8 +19,8 @@ def index(request):
 def post_detail(request, slug):
      post = Post.objects.get(slug=slug)
      return render(request, 'posts/post_detail.html', {
-          'posts': posts,}
-     )
+          'post': post,
+     })
 
 @login_required
 def create_post(request):
@@ -30,7 +30,7 @@ def create_post(request):
           if form.is_valid():
                post = form.save(commit=False)
                post.user = request.user
-               post.slug = slugify(post.name)
+               post.slug = slugify(post.title)
                post.save()
                return redirect("post_detail", slug=post.slug)
      else:

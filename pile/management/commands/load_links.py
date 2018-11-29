@@ -1,11 +1,12 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from mimesis import Text, Person, Internet
+from mimesis import Text, Person, Internet, Food
 
 
 person = Person('en')
 text = Text('en')
 internet = Internet()
+
 
 
 
@@ -21,13 +22,15 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         from pile.models import Post
         from django.contrib.auth.models import User
-        from mimesis import Person, Text, Internet
+        from mimesis import Person, Text, Internet, Food
         
         print("Deleting users...")
         User.objects.filter(is_superuser=False).delete()
 
         users = []
         person = Person()
+        food = Food('en')
+        
         for _ in range(5):
             user = User.objects.create_user(person.username(), person.email(), 
                                             'password' )
@@ -39,27 +42,32 @@ class Command(BaseCommand):
                 { "title": text.title(),
                 "author": user,
                 "link": internet.home_page(),
-                "description": text.quote()
+                "description": text.quote(),
+                "slug": food.vegetable()
                 }, 
-                    { "title": text.title(),
+                { "title": text.title(),
                 "author": user,
                 "link": internet.home_page(),
-                "description": text.quote()
+                "description": text.quote(),
+                "slug": food.vegetable()
                 }, 
-                    { "title": text.title(),
+                { "title": text.title(),
                 "author": user,
                 "link": internet.home_page(),
-                "description": text.quote()
+                "description": text.quote(),
+                "slug": food.vegetable()
                 }, 
-                    { "title": text.title(),
+                { "title": text.title(),
                 "author": user,
                 "link": internet.home_page(),
-                "description": text.quote()
+                "description": text.quote(),
+                "slug": food.vegetable()
                 }, 
-                    { "title": text.title(),
+                { "title": text.title(),
                 "author": user,
                 "link": internet.home_page(),
-                "description": text.quote()
+                "description": text.quote(),
+                "slug": food.vegetable()
                 }
             ]       
 
