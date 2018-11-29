@@ -58,3 +58,14 @@ def edit_post(request, slug):
                "post": post,
                "form": form,
           })
+
+@require_POST
+def change_favorite(request, post_id):
+     post = Post.objects.get(pk=post_id)
+
+     if post in request.user.favorite_posts.all():
+          post.favorites.get(user=request.user).delete()
+     else: 
+          post.favorites.create(user=request.user)
+
+     return redirect(f'/#post-{post.pk}')
