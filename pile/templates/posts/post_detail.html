@@ -11,7 +11,7 @@
     <p> Link: {{ post.link }}</p>
     <p> Slug: {{ post.slug }}</p>
 
-    {% if user == post.user %}
+    {% if user == post.author %}
         <p>
             <a href="{% url 'edit_post' slug=post.slug %}">
             Edit Me!

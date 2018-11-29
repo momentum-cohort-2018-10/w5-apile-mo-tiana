@@ -29,7 +29,7 @@ def create_post(request):
           form = form_class(request.POST)
           if form.is_valid():
                post = form.save(commit=False)
-               post.user = request.user
+               post.author = request.user
                post.slug = slugify(post.title)
                post.save()
                return redirect("post_detail", slug=post.slug)
@@ -42,7 +42,7 @@ def create_post(request):
 
 def edit_post(request, slug):
      post = Post.objects.get(slug=slug)
-     if post.user != request.user:
+     if post.author != request.user:
           raise Http404
 
      form_class = PostForm
