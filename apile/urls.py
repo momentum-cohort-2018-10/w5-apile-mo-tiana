@@ -44,6 +44,10 @@ urlpatterns = [
 
     path('posts/<slug>/edit/', views.edit_post, name="edit_post"),
 
+    path('posts/<int:post_id>/favorite/', views.change_favorite, name="change_favorite"),
+
+    # path('favorites/', views.favorites_index, name='favorites_index'),
+
     path('accounts/', include('registration.backends.simple.urls')),
 
     path('admin/', admin.site.urls),
