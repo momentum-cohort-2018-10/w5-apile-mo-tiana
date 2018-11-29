@@ -59,12 +59,29 @@ def edit_post(request, slug):
                "form": form,
           })
 
+def favorites_list(request):
+     posts = request.user.favorite_posts.all()
+     return render_post_list(request, 'my favorite posts', posts)
+
+def render_post_list(request, header, posts):
+     posts = posts.annotate(num_of_favorites=Count('favorites'))
+     favorite_posts = []
+     if request.user.is_authenticated:
+          favorite_posts = request.user.favorite_posts.all()
+     posts = posts.orderby('created_at')
+     return render(request, 'index.html',{
+          "header": header,
+          "posts": posts,
+          "favorite_posts": favorite_posts
+     })
+
 @require_POST
 def change_favorite(request, post_id):
      post = Post.objects.get(pk=post_id)
 
      if post in request.user.favorite_posts.all():
           post.favorites.get(user=request.user).delete()
+          
      else: 
           post.favorites.create(user=request.user)
 

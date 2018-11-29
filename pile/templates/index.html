@@ -23,7 +23,7 @@ Create post</a>
                     <form method="POST" action="{% url 'change_favorite' post_id=post.pk%}" class="dib">
                     {% csrf_token %}
                     <button class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" type="FAVORITE">
-                        {% if post in favorite_posts %}
+                        {% if post in request.user.favorite_posts %}
                             {% comment %}Filled in icon{% endcomment %}
                             <p>This is already in your favorites</p>
                         {% else %}
@@ -36,6 +36,8 @@ Create post</a>
             <p>{{ post.author }}</p>
             <p><a href="{{ post.link }}">{{ post.link }}</a></p>
             <p>{{ post.description }}</p>
+            <div>This post has {{ post.num_of_favorites }} favorites</div>
+
 
 
         {% endfor %}
