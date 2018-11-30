@@ -30,6 +30,7 @@ Create post</a>
 
     <div>
         {% for post in posts %}
+            <p> Created at: {{ post.created_at }}</p>
             {% if post.link %} 
                 <h3><a href="{{ post.link }}">{{ post.title }}</a></h3>
             {% else %}

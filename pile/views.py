@@ -13,19 +13,20 @@ from pile.forms import PostForm, CommentForm
 # Create your views here.
 def index(request):
      posts = Post.objects.all()
-     # post_links = []
-     # if post.link in posts :
-     #      post_links = post_links.append(post.link)
-     
+     posts = posts.annotate(num_of_favorites=Count('favorites'))
+     num_of_favorites = Count('favorites')
+
      favorites = Favorite.objects.all()
      favorite_posts = []
      if request.user.is_authenticated:
           favorite_posts = request.user.favorite_posts.all()
+     posts= posts.order_by('-created_at')
+     posts= posts.order_by('-num_of_favorites')
      return render(request, 'index.html', {
          'posts': posts,
          'favorites': favorites,
          'favorite_posts': favorite_posts,
-     #     'post_link': post_link,
+
 
 
      })
@@ -96,7 +97,7 @@ def render_post_list(request, header, posts):
      favorite_posts = []
      if request.user.is_authenticated:
           favorite_posts = request.user.favorite_posts.all()
-     posts = posts.orderby('created_at')
+     posts = posts.orderby('-created_at')
      return render(request, 'index.html',{
           "header": header,
           "posts": posts,
