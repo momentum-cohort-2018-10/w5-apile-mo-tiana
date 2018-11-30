@@ -20,6 +20,7 @@
 
     <div>
         {% for comment in comments %}
+            <p>{{ comment.created_at }}</p>
             <p>{{ comment.new_comment }}</p>
             <p>{{ comment.author }}</p>
         {% endfor %}
