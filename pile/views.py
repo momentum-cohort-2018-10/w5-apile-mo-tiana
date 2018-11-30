@@ -11,12 +11,13 @@ from pile.forms import PostForm, CommentForm
 
 # Create your views here.
 def index(request):
-    posts = Post.objects.all()
-#     form = CommentForm(request.POST)
-    return render(request, 'index.html', {
+     posts = Post.objects.all()
+     favorites = Favorite.objects.all()
+     return render(request, 'index.html', {
          'posts': posts,
-          }
-    )
+         'favorites': favorites,
+
+     })
 
 def post_detail(request, slug):
      post = Post.objects.get(slug=slug)

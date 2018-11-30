@@ -22,7 +22,7 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        from pile.models import Post
+        from pile.models import Post, Favorite
         from django.contrib.auth.models import User
         from mimesis import Person, Text, Internet, Food
         
@@ -86,7 +86,14 @@ class Command(BaseCommand):
         print("Posts loaded!")
 
 
-
-
-
-
+        Favorite.objects.all().delete()
+        Favorite.objects.create(post=posts[0], user=users[0])
+        Favorite.objects.create(post=posts[0], user=users[1])
+        Favorite.objects.create(post=posts[0], user=users[2])
+        Favorite.objects.create(post=posts[0], user=users[3])
+        Favorite.objects.create(post=posts[1], user=users[0])
+        Favorite.objects.create(post=posts[1], user=users[1])
+        Favorite.objects.create(post=posts[2], user=users[0])
+        Favorite.objects.create(post=posts[2], user=users[1])
+        Favorite.objects.create(post=posts[2], user=users[2])
+        print("Favorites added!")

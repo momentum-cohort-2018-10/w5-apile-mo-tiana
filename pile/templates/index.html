@@ -36,6 +36,7 @@ Create post</a>
             <p>{{ post.author }}</p>
             <p><a href="{{ post.link }}">{{ post.link }}</a></p>
             <p>{{ post.description }}</p>
+            <p>There are {{ post.favorites.count }} favorites</p>
 
 
         {% endfor %}
