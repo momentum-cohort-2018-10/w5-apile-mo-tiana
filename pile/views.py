@@ -20,15 +20,11 @@ def index(request):
      favorite_posts = []
      if request.user.is_authenticated:
           favorite_posts = request.user.favorite_posts.all()
-     posts= posts.order_by('-created_at')
      posts= posts.order_by('-num_of_favorites')
      return render(request, 'index.html', {
          'posts': posts,
          'favorites': favorites,
          'favorite_posts': favorite_posts,
-
-
-
      })
 
 def post_detail(request, slug):
@@ -43,10 +39,11 @@ def post_detail(request, slug):
                return redirect("post_detail", slug=slug)
      else:
           form = CommentForm()
+     comments = post.comments.order_by('-created_at')
      return render(request, 'posts/post_detail.html', {
      'post': post,
      'form': CommentForm(),
-     'comments': post.comments.all(),
+     'comments': comments,
      })
 
 

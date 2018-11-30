@@ -41,25 +41,8 @@ class Command(BaseCommand):
 
         print("Deleting Posts...")
         Post.objects.all().delete()
+        print("Posts Deleted!")
         
-        
-        # for i in range(30):
-        # # for i in range(10):
-        #     i = 0
-        #     initial_posts = [
-        #         { "title": text.title(),
-        #         "author": users[i],
-        #         "link": internet.home_page(),
-        #         "description": text.quote(),
-        #         "slug": food.vegetable(), }]
-        #         # { "title": text.title(),
-        #         # "author": users[i],
-        #         # "link": internet.home_page(),
-        #         # "description": text.quote(),
-        #         # "slug": food.vegetable(), }]
-        #     i += 1
-        #     # initial_posts.append(initial_post)
-        #     print("Posts created")
 
         posts = []
         for i in range(30):
