@@ -20,15 +20,21 @@
 
     <div>
         {% for comment in comments %}
-            <p>{{ comment.new_comment }}</p>
+            <p>{{ comment.comment }}</p>
             <p>{{ comment.author }}</p>
         {% endfor %}
     {% if user == post.author %}
         <p>
             <a href="{% url 'edit_post' slug=post.slug %}">
-            Edit Me!
+            Edit Post!
             </a>
         </p>
+    {% else %}
+        <p>
+            <a href="{% url 'post_detail/<slug>/create_comment' slug=comment.post.slug %}">
+            Comment!
+            </a>
+        </p>  
         <p>
             {% comment %} <a href"{% url 'index' %}">Delete Post</a> {% endcomment %}
         </p>

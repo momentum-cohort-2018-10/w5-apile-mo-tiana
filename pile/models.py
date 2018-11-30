@@ -20,7 +20,7 @@ class Post(models.Model):
 class Comment(models.Model):
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
     post = models.ForeignKey(to=Post, on_delete=models.CASCADE)
-    new_comment = models.TextField(max_length=1000)
+    comment = models.TextField(max_length=1000)
 
 
 class Favorite(models.Model):
