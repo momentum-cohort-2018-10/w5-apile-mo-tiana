@@ -5,7 +5,7 @@ from pile.models import Post, Comment
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'link', 'description')
+        fields = ('title', 'link', 'description',)
 
 
 class CommentForm(ModelForm):
