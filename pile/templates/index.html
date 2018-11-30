@@ -5,6 +5,14 @@
     Home - {{ block.super }}
 {% endblock title%}
 
+<header class="georgia">
+    <div class="cover bg-left bg-center-1" style="background-image: url(https://i.kym-cdn.com/entries/icons/original/000/015/878/thatsnoneofmy.jpg")>
+        <div class="bg-black-80 pb5 pb6-m pb7-1">
+            <nav class="dt w-100 mw8 center">
+                <div class="dtc w2 v-mid tr pa3">
+                
+                    
+
 {% block content %}
     <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
     <h1> Mo' T<img src= "tea.jpg" > please
@@ -21,16 +29,17 @@ Create post</a>
                 {{ post.title }}
             </a></h3>
                 {% if request.user.is_authenticated %}
-                    <form method="POST" action="{% url 'change_favorite' post_id=post.pk%}" class="dib">
+                    <form method="POST" action="{% url 'change_favorite' post_id=post.pk%}" class="f4 link grow dib bg-orange">
                     {% csrf_token %}
                     <button type="submit">
                         {% if post in favorite_posts %}
 
-                        &#x2605;
+                        &#9749; 
                             
                         {% else %}
  
-                        &#x2606;
+                        &#128056; 
+                        
                         {% endif %}
                     </button>
                     </form>

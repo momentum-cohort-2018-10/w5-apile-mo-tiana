@@ -115,11 +115,11 @@ def change_favorite(request, post_id):
 
           if post in request.user.favorite_posts.all():
                post.favorites.get(user=request.user).delete()
-               message = "You have unfavorited this post"
+               message = "That's none of my business"
           
           else: 
                post.favorites.create(user=request.user)
-               message = "You have favorited this post"
+               message = "This is my cup of tea!"
 
      messages.add_message(request, messages.INFO, message)
      return redirect(f'/#post-{post.pk}')
