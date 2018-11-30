@@ -13,6 +13,10 @@ from pile.forms import PostForm, CommentForm
 # Create your views here.
 def index(request):
      posts = Post.objects.all()
+     # post_links = []
+     # if post.link in posts :
+     #      post_links = post_links.append(post.link)
+     
      favorites = Favorite.objects.all()
      favorite_posts = []
      if request.user.is_authenticated:
@@ -21,6 +25,8 @@ def index(request):
          'posts': posts,
          'favorites': favorites,
          'favorite_posts': favorite_posts,
+     #     'post_link': post_link,
+
 
      })
 
@@ -42,25 +48,6 @@ def post_detail(request, slug):
      'comments': post.comments.all(),
      })
 
-
-# def create_comment(request):
-     
-#      if request.method == "POST":
-#           form = form_class(request.POST)
-#      # comment_form = CommentForm(request.POST)
-#      if comment_form.is_valid():
-#           comment = form.save(commit=False)
-          
-#           # comment.post = 
-#           # Comment.objects.create(user=user, comment=comment)
-          
-          
-#      else:
-#           form = form_class()
-
-#      return render(request, 'index.html', {
-#           "form": form,
-#      })
 
 @login_required
 def create_post(request):
@@ -126,11 +113,11 @@ def change_favorite(request, post_id):
 
           if post in request.user.favorite_posts.all():
                post.favorites.get(user=request.user).delete()
-               message = "You have unfavorited this post"
+               message = "That's none of my business"
           
           else: 
                post.favorites.create(user=request.user)
-               message = "You have favorited this post"
+               message = "This is my cup of tea!"
 
      messages.add_message(request, messages.INFO, message)
      return redirect(f'/#post-{post.pk}')

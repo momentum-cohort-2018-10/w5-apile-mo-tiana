@@ -5,44 +5,59 @@
     Home - {{ block.super }}
 {% endblock title%}
 
+<header class="georgia">
+    <div class="cover bg-left bg-center-1" style="background-image: url(https://i.kym-cdn.com/entries/icons/original/000/015/878/thatsnoneofmy.jpg")>
+        <div class="bg-black-80 pb5 pb6-m pb7-1">
+        <div class="tc-1 mt4 mt5-m mt6-1 ph3">
+        <h1 class="f2 f1-1 fw2 white-90 mb0 lh-title">Mo T' please!</h1>
+        <h2 class="fw1 f3 white-80 mt3 mb4">Spill the tea or take a sip of our blends</h2>
+        <a class="f6 no-underline grow dib v-mid bg-blue white ba b--blue ph3 pv2 mb3" href="{% url 'create_post' %}">Spill The Tea</a>
+        </div>
+        </div>
+</div>
+</header>
+                
+                    
+
 {% block content %}
     <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
-    <h1> Mo' T<img src= "tea.jpg" > please
+    <h1> Mo' T<img src= "https://images.vexels.com/media/users/3/131076/isolated/preview/ebced5a599e83593ec0237556526803a-taza-caliente-de-t-icono-by-vexels.png" width="40" > please
         <span class="txt-rotate" data-period="2000" data-rotate= '["T(ea) please!", "of my FAVORITE things"]'></span>
     </h1> 
-
+{% comment %} <img src="https://i.kym-cdn.com/entries/icons/original/000/015/878/thatsnoneofmy.jpg" width=700> {% endcomment %}
     <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'create_post' %}">
 Create post</a>
 
     <div>
         {% for post in posts %}
-        
-            <h3><a href="{% url 'post_detail' slug=post.slug %}">
-                {{ post.title }}
-            </a></h3>
+            {% if post.link %} 
+                <h3><a href="{{ post.link }}">{{ post.title }}</a></h3>
+            {% else %}
+                
+                <h3><a href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a></h3> 
+
+            {% endif %} 
+
                 {% if request.user.is_authenticated %}
-                    <form method="POST" action="{% url 'change_favorite' post_id=post.pk%}" class="dib">
+                    <form method="POST" action="{% url 'change_favorite' post_id=post.pk%}" class="f4 link grow dib bg-orange">
                     {% csrf_token %}
                     <button type="submit">
                         {% if post in favorite_posts %}
 
-                        &#x2605;
+                        &#9749; 
                             
                         {% else %}
  
-                        &#x2606;
+                        &#128056; 
+                        
                         {% endif %}
                     </button>
                     </form>
                 {% endif %}
 
             <p>{{ post.author }}</p>
-            <p><a href="{{ post.link }}">{{ post.link }}</a></p>
-
-            <p>This post has {{ post.favorites.count }} favorite{{post.favorites.count|pluralize}}</p>
+            <p><a href="{% url 'post_detail' slug=post.slug %}">This post has {{ post.comments.count }} comment{{post.comments.count|pluralize}}</a> and {{ post.favorites.count }} favorite{{post.favorites.count|pluralize}}</p>
             
-
-
         {% endfor %}
     </div>
 
