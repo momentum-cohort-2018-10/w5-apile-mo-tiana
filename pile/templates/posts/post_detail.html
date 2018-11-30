@@ -9,6 +9,7 @@
     <p> Author: {{ post.author }}</p>
     <p> {{ post.description }}</p>
     <p><a href="{{ post.link }}">Read Full Article</a></p>
+    <p>This post has {{ post.favorites.count }} favorites</p>
 
 
     <div><form role="form" action="" method="POST">

@@ -38,7 +38,9 @@
 
         </nav>
     </header>
-  
+    {% for message in messages %}
+        <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+    {% endfor %}
     {% block content %}{% endblock content %}
     {% block footer %}{% endblock footer %}
 </body>
