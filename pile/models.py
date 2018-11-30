@@ -6,9 +6,9 @@ from django.contrib.auth.models import User
 class Post(models.Model):
     title = models.CharField(max_length=500)
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    link = models.URLField(unique=True, blank=True)
+    link = models.URLField(unique=False, blank=True)
     description = models.TextField()
-    slug = models.SlugField(default=None, unique=True)
+    slug = models.SlugField(default=None, unique=False)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     favorited_users = models.ManyToManyField(to=User, through="Favorite", related_name="favorite_posts")
 

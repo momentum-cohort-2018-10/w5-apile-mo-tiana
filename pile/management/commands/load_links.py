@@ -2,6 +2,7 @@ from django.template.defaultfilters import slugify
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from mimesis import Text, Person, Internet
+from random import randint
 # from pile.models import Post
 
 
@@ -30,29 +31,53 @@ class Command(BaseCommand):
         food = Food('en')
     
 
-        for _ in range(10):
+        for _ in range(40):
             user = User.objects.create_user(person.username(), person.email(), 
                                             'password' )
             users.append(user)
-            print("Users created") 
-            print(users)
+        print("Users created") 
+        print(users)
             # return users   
 
         print("Deleting Posts...")
         Post.objects.all().delete()
         
-        initial_posts = []
+        
+        # for i in range(30):
+        # # for i in range(10):
+        #     i = 0
+        #     initial_posts = [
+        #         { "title": text.title(),
+        #         "author": users[i],
+        #         "link": internet.home_page(),
+        #         "description": text.quote(),
+        #         "slug": food.vegetable(), }]
+        #         # { "title": text.title(),
+        #         # "author": users[i],
+        #         # "link": internet.home_page(),
+        #         # "description": text.quote(),
+        #         # "slug": food.vegetable(), }]
+        #     i += 1
+        #     # initial_posts.append(initial_post)
+        #     print("Posts created")
 
+        posts = []
         for i in range(30):
-            initial_post = [
-            { "title": text.title(),
-            "author": users[i],
-            "link": internet.home_page(),
-            "description": text.quote(),
-            "slug": food.vegetable(), }]
-            initial_posts.append(initial_post)
-            print("Posts created")
+            post = Post(title=text.title(),
+                author=users[i],
+                link=internet.home_page(),
+                description=text.quote(),
+                slug=randint(1, 1000))
 
+            post.save()
+            posts.append(post)
+
+        # for post_data in initial_posts:
+            
+        #     post = Post.objects.create(**post_data)
+        #     for i in range(5):
+        #         posts.append(post)
+        print("Posts loaded!")
         #     { "title": text.title(),
         #     "author": users[1],
         #     "link": internet.home_page(),
@@ -82,21 +107,21 @@ class Command(BaseCommand):
         # print("Deleting Posts...")
         # Post.objects.all().delete()
     
-        posts = []
-        for post_data in initial_posts:
-            post = Post.objects.create(**post_data)
-            posts.append(post)
-        print("Posts loaded!")
+        # posts = []
+        # for post_data in initial_posts:
+        #     post = Post.objects.create(**post_data)
+        #     initial_posts.append(post)
+        # print("Posts loaded!")
 
 
-        Favorite.objects.all().delete()
-        Favorite.objects.create(post=posts[0], user=users[0])
-        Favorite.objects.create(post=posts[0], user=users[1])
-        Favorite.objects.create(post=posts[0], user=users[2])
-        Favorite.objects.create(post=posts[0], user=users[3])
-        Favorite.objects.create(post=posts[1], user=users[0])
-        Favorite.objects.create(post=posts[1], user=users[1])
-        Favorite.objects.create(post=posts[2], user=users[0])
-        Favorite.objects.create(post=posts[2], user=users[1])
-        Favorite.objects.create(post=posts[2], user=users[2])
-        print("Favorites added!")
+        # Favorite.objects.all().delete()
+        # Favorite.objects.create(post=posts[0], user=users[0])
+        # Favorite.objects.create(post=posts[0], user=users[1])
+        # Favorite.objects.create(post=posts[0], user=users[2])
+        # Favorite.objects.create(post=posts[0], user=users[3])
+        # Favorite.objects.create(post=posts[1], user=users[0])
+        # Favorite.objects.create(post=posts[1], user=users[1])
+        # Favorite.objects.create(post=posts[2], user=users[0])
+        # Favorite.objects.create(post=posts[2], user=users[1])
+        # Favorite.objects.create(post=posts[2], user=users[2])
+        # print("Favorites added!")
