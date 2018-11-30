@@ -12,12 +12,17 @@ from pile.forms import PostForm, CommentForm
 
 # Create your views here.
 def index(request):
-    posts = Post.objects.all()
-#     form = CommentForm(request.POST)
-    return render(request, 'index.html', {
+     posts = Post.objects.all()
+     favorites = Favorite.objects.all()
+     favorite_posts = []
+     if request.user.is_authenticated:
+          favorite_posts = request.user.favorite_posts.all()
+     return render(request, 'index.html', {
          'posts': posts,
-          }
-    )
+         'favorites': favorites,
+         'favorite_posts': favorite_posts,
+
+     })
 
 def post_detail(request, slug):
      post = Post.objects.get(slug=slug)
@@ -100,13 +105,20 @@ def render_post_list(request, header, posts):
 
 @require_POST
 def change_favorite(request, post_id):
-     post = Post.objects.get(pk=post_id)
+     if request.method == "POST":
 
-     if post in request.user.favorite_posts.all():
-          post.favorites.get(user=request.user).delete()
+          post = Post.objects.get(pk=post_id)
           
-     else: 
-          post.favorites.create(user=request.user)
 
+
+          if post in request.user.favorite_posts.all():
+               post.favorites.get(user=request.user).delete()
+               message = "You have unfavorited this post"
+          
+          else: 
+               post.favorites.create(user=request.user)
+               message = "You have favorited this post"
+
+     messages.add_message(request, messages.INFO, message)
      return redirect(f'/#post-{post.pk}')
 

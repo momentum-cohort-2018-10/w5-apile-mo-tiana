@@ -8,7 +8,12 @@ class PostAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     model = Comment
     list_display = ("comment", "author",)
+
+class FavoriteAdmin(admin.ModelAdmin):
+    model = Favorite
+    list_display = ('post', 'user',)
+
 # Register your models here.
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
-admin.site.register(Favorite)
+admin.site.register(Favorite, FavoriteAdmin)

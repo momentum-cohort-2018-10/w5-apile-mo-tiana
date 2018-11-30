@@ -155,3 +155,12 @@ LOGIN_REDIRECT_URL = "home"
 
 #activate django-heroku
 django_heroku.settings(locals())
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.SUCCESS: 'bg-green white pa3 br3 ma3',
+    messages.INFO: 'bg-light-gray black pa3 br3 ma3',
+    messages.WARNING: 'bg-light-blue black pa3 br3 ma3',
+    messages.ERROR: 'bg-dark-red white pa3 br3 ma3',
+}
