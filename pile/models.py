@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Post(models.Model):
     title = models.CharField(max_length=500)
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    link = models.URLField(unique=True)
+    link = models.URLField(unique=True, blank=True)
     description = models.TextField()
     slug = models.SlugField(default=None, unique=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)

@@ -5,11 +5,10 @@
 {% endblock title %}
 
 {% block content %}
-    <h3> Title: {{ post.title }}</h3>
+    <h3><a href="{{ post.link }}">{{ post.title }}</a></h3>
     <p> Author: {{ post.author }}</p>
     <p> {{ post.description }}</p>
-    <p><a href="{{ post.link }}">Read Full Article</a></p>
-    <p>This post has {{ post.favorites.count }} favorites</p>
+    <p>This post has {{ post.comments.count }} comment{{post.comments.count|pluralize}} and {{ post.favorites.count }} favorites</p>
 
 
     <div><form role="form" action="" method="POST">
@@ -30,12 +29,7 @@
             Edit Post!
             </a>
         </p>
-    {% else %}
-        <p>
-            <a href="{% url 'post_detail' slug=post.slug %}">
-            Comment!
-            </a>
-        </p>  
+   
         <p>
             {% comment %} <a href"{% url 'index' %}">Delete Post</a> {% endcomment %}
         </p>
