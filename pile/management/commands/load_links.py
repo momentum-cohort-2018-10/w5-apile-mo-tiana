@@ -10,10 +10,6 @@ text = Text('en')
 internet = Internet()
 
 
-
-
-
-
 class Command(BaseCommand):
     help = "Command to load our user data and their links"
 
@@ -34,7 +30,7 @@ class Command(BaseCommand):
         food = Food('en')
     
 
-        for _ in range(5):
+        for _ in range(10):
             user = User.objects.create_user(person.username(), person.email(), 
                                             'password' )
             users.append(user)
@@ -42,42 +38,49 @@ class Command(BaseCommand):
             print(users)
             # return users   
 
-        for user in users:
-            initial_posts = [
-            { "title": text.title(),
-            "author": users[0],
-            "link": internet.home_page(),
-            "description": text.quote(),
-            "slug": food.vegetable()
-            },
-            { "title": text.title(),
-            "author": users[1],
-            "link": internet.home_page(),
-            "description": text.quote(),
-            "slug": food.vegetable()
-            }, 
-            { "title": text.title(),
-            "author": users[2],
-            "link": internet.home_page(),
-            "description": text.quote(),
-            "slug": food.vegetable()
-            }, 
-            { "title": text.title(),
-            "author": users[3],
-            "link": internet.home_page(),
-            "description": text.quote(),
-            "slug": food.vegetable()
-            }, 
-            { "title": text.title(),
-            "author": users[4],
-            "link": internet.home_page(),
-            "description": text.quote(),
-            "slug": food.vegetable()
-            }
-        ]       
-
         print("Deleting Posts...")
         Post.objects.all().delete()
+        
+        initial_posts = []
+
+        for i in range(30):
+            initial_post = [
+            { "title": text.title(),
+            "author": users[i],
+            "link": internet.home_page(),
+            "description": text.quote(),
+            "slug": food.vegetable(), }]
+            initial_posts.append(initial_post)
+            print("Posts created")
+
+        #     { "title": text.title(),
+        #     "author": users[1],
+        #     "link": internet.home_page(),
+        #     "description": text.quote(),
+        #     "slug": food.vegetable()
+        #     }, 
+        #     { "title": text.title(),
+        #     "author": users[2],
+        #     "link": internet.home_page(),
+        #     "description": text.quote(),
+        #     "slug": food.vegetable()
+        #     }, 
+        #     { "title": text.title(),
+        #     "author": users[3],
+        #     "link": internet.home_page(),
+        #     "description": text.quote(),
+        #     "slug": food.vegetable()
+        #     }, 
+        #     { "title": text.title(),
+        #     "author": users[4],
+        #     "link": internet.home_page(),
+        #     "description": text.quote(),
+        #     "slug": food.vegetable()
+        #     }
+        # ]       
+
+        # print("Deleting Posts...")
+        # Post.objects.all().delete()
     
         posts = []
         for post_data in initial_posts:
