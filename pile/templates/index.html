@@ -19,9 +19,24 @@ Create post</a>
             <h3><a href="{% url 'post_detail' slug=post.slug %}">
                 {{ post.title }}
             </a></h3>
+                {% if request.user.is_authenticated %}
+                    <form method="POST" action="{% url 'change_favorite' post_id=post.pk%}" class="dib">
+                    {% csrf_token %}
+                    <button class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" type="FAVORITE">
+                        {% if post in request.user.favorite_posts %}
+                            {% comment %}Filled in icon{% endcomment %}
+                            <p>This is already in your favorites</p>
+                        {% else %}
+                            {% comment %}Empty icon{% endcomment %}
+                            <p>Not yet favorited</p>
+                        {% endif %}
+                    </button>
+                </form>
+                {% endif %}
             <p>{{ post.author }}</p>
             <p><a href="{{ post.link }}">{{ post.link }}</a></p>
             <p>{{ post.description }}</p>
+
 
         {% endfor %}
     </div>
