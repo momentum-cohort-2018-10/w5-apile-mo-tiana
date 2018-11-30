@@ -7,7 +7,7 @@ class PostAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
     model = Comment
-    list_display = ("comment", "author",)
+    list_display = ("new_comment", "author",)
 
 class FavoriteAdmin(admin.ModelAdmin):
     model = Favorite

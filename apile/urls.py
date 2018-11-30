@@ -42,7 +42,7 @@ urlpatterns = [
 
     path('posts/<slug>/', views.post_detail, name='post_detail'),
 
-    path('posts/<slug>/create_comment/', views.create_comment, name='create_comment'),
+    # path('posts/<slug>/create_comment/', views.create_comment, name='create_comment'),
 
     path('posts/<slug>/edit/', views.edit_post, name="edit_post"),
 

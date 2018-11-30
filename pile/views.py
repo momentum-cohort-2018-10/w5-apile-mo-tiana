@@ -26,11 +26,41 @@ def index(request):
 
 def post_detail(request, slug):
      post = Post.objects.get(slug=slug)
-     comment = Post.objects.get(comment)
+     if request.method == "POST":
+          form = CommentForm(request.POST)
+          if form.is_valid:
+               comment = form.save(commit=False)
+               comment.author = request.user
+               comment.post = post
+               comment.save()
+               return redirect("post_detail", slug=slug)
+     else:
+          form = CommentForm()
      return render(request, 'posts/post_detail.html', {
      'post': post,
-     'comment': comment,
+     'form': CommentForm(),
+     'comments': post.comments.all(),
      })
+
+
+# def create_comment(request):
+     
+#      if request.method == "POST":
+#           form = form_class(request.POST)
+#      # comment_form = CommentForm(request.POST)
+#      if comment_form.is_valid():
+#           comment = form.save(commit=False)
+          
+#           # comment.post = 
+#           # Comment.objects.create(user=user, comment=comment)
+          
+          
+#      else:
+#           form = form_class()
+
+#      return render(request, 'index.html', {
+#           "form": form,
+#      })
 
 @login_required
 def create_post(request):
@@ -69,23 +99,6 @@ def edit_post(request, slug):
                "form": form,
           })
 
-def create_comment(request):
-     form_class = CommentForm
-     if request.method == "POST":
-          form = form_class(request.POST)
-     # comment_form = CommentForm(request.POST)
-     if comment_form.is_valid():
-          comment = form.save(commit=False)
-          comment.author = request.user
-          Comment.objects.create(user=user, comment=comment)
-          comment.save()
-          return redirect("post_detail", slug=slug)
-     else:
-          form = form_class()
-
-     return render(request, 'index.html', {
-          "form": form,
-     })
 
 def favorites_list(request):
      posts = request.user.favorite_posts.all()

@@ -14,14 +14,14 @@
 
     <div><form role="form" action="" method="POST">
         {% csrf_token %}
-        {{ comment_form }}
+        {{ form }}
         <button type='submit'>Post Comment</button>
         </form>
     </div>
 
     <div>
         {% for comment in comments %}
-            <p>{{ comment.comment }}</p>
+            <p>{{ comment.new_comment }}</p>
             <p>{{ comment.author }}</p>
         {% endfor %}
     {% if user == post.author %}
@@ -32,7 +32,7 @@
         </p>
     {% else %}
         <p>
-            <a href="{% url 'post_detail/<slug>/create_comment' slug=comment.post.slug %}">
+            <a href="{% url 'post_detail' slug=post.slug %}">
             Comment!
             </a>
         </p>  
