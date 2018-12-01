@@ -23,10 +23,12 @@
             <p>{{ comment.created_at }}</p>
             <p>{{ comment.new_comment }}</p>
             <p>{{ comment.author }}</p>
+            {% if user == comment.author %}
             <form method="POST" action="{% url 'delete_comment' comment_id=comment.pk%}" class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple">
                 {% csrf_token %}
             <button type="submit">Delete Comment</button>
             </form>
+            {% endif %}
         {% endfor %}
     {% if user == post.author %}
         <p>

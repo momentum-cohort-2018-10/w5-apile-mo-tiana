@@ -141,8 +141,8 @@ def delete_comment(request, comment_id):
      if request.method == "POST":
           comment.delete()
           message = f"Your comment has been deleted."
+          
 
      messages.add_message(request, messages.SUCCESS, message)
-     # return redirect("post_detail", slug=post.slug)
      return redirect(f'/#post-{comment.pk}')
 
