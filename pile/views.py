@@ -131,4 +131,18 @@ def delete_post(request, post_id):
      messages.add_message(request, messages.SUCCESS, message)
      return redirect(f'/#post-{post.pk}')
 
+def delete_comment(request, comment_id):
+     # post = Post.objects.get(slug=slug)
+     comment = Comment.objects.get(pk=comment_id)
+     # comment.post = post
+     if comment.author != request.user:
+          raise Http404
+
+     if request.method == "POST":
+          comment.delete()
+          message = f"Your comment has been deleted."
+
+     messages.add_message(request, messages.SUCCESS, message)
+     # return redirect("post_detail", slug=post.slug)
+     return redirect(f'/#post-{comment.pk}')
 
