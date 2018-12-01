@@ -68,7 +68,7 @@ ROOT_URLCONF = 'apile.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,11 +76,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request', ## For EL-pagination
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'apile.wsgi.application'
 
@@ -168,3 +169,5 @@ MESSAGE_TAGS = {
     messages.WARNING: 'bg-light-blue black pa3 br3 ma3',
     messages.ERROR: 'bg-dark-red white pa3 br3 ma3',
 }
+
+EL_PAGINATION_PER_PAGE = 20
