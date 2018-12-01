@@ -48,6 +48,8 @@ urlpatterns = [
 
     path('posts/<int:post_id>/favorite/', views.change_favorite, name="change_favorite"),
 
+    path('posts/<int:post_id>/delete', views.delete_post, name='delete_post'),
+
     # path('favorites/', views.favorites_index, name='favorites_index'),
 
     path('accounts/', include('registration.backends.simple.urls')),

@@ -30,9 +30,12 @@
             Edit Post!
             </a>
         </p>
-   
+            <form method="POST" action="{% url 'delete_post' post_id=post.pk %}" class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple">
+                {% csrf_token %}
+            <button type="submit">Delete Post</button>
+            </form>
         <p>
-            {% comment %} <a href"{% url 'index' %}">Delete Post</a> {% endcomment %}
+
         </p>
     {% endif %}
 {% endblock content %}

@@ -107,8 +107,6 @@ def change_favorite(request, post_id):
 
           post = Post.objects.get(pk=post_id)
           
-
-
           if post in request.user.favorite_posts.all():
                post.favorites.get(user=request.user).delete()
                message = "That's none of my business"
@@ -119,4 +117,18 @@ def change_favorite(request, post_id):
 
      messages.add_message(request, messages.INFO, message)
      return redirect(f'/#post-{post.pk}')
+
+def delete_post(request, post_id):
+     post = Post.objects.get(pk=post_id)
+     
+     if post.author != request.user:
+          raise Http404
+
+     if request.method == "POST":
+          post.delete()
+          message = f"Your post titled: {post}, has been deleted."
+
+     messages.add_message(request, messages.SUCCESS, message)
+     return redirect(f'/#post-{post.pk}')
+
 

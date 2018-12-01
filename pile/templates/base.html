@@ -30,6 +30,7 @@
         <nav>
     <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'home' %}">Home</a>
     {% if user.is_authenticated %}
+    <p>You are logged in as: {{ user.username }}</p>
     <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'auth_logout' %}">Sign Out</a>
     {% else %}
     <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'auth_login' %}">Sign In</a>
