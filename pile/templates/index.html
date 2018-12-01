@@ -30,7 +30,7 @@ Create post</a>
 
     <div>
         {% for post in posts %}
-            <p> Created at: {{ post.created_at }}</p>
+            
             {% if post.link %} 
                 <h3><a href="{{ post.link }}">{{ post.title }}</a></h3>
             {% else %}
@@ -57,7 +57,9 @@ Create post</a>
                 {% endif %}
 
             <p>{{ post.author }}</p>
-            <p><a href="{% url 'post_detail' slug=post.slug %}">This post has {{ post.comments.count }} comment{{post.comments.count|pluralize}}</a> and {{ post.favorites.count }} favorite{{post.favorites.count|pluralize}}</p>
+            <p>{{ post.description }}</p>
+            <p><a href="{% url 'post_detail' slug=post.slug %}">This post has {{ post.comments.count }} comment{{post.comments.count|pluralize}}</a> and {{ post.favorites.count }} favorite{{post.favorites.count|pluralize}} and was created at: {{ post.created_at }}</p>
+
             
         {% endfor %}
     </div>
