@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load el_pagination_tags %}
 
 {% block title%}
     Home - {{ block.super }}
@@ -20,6 +21,8 @@
                     
 
 {% block content %}
+{% comment %} {% load el_pagination_tags %} {% endcomment %}
+
     <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
     <h1> Mo' T<img src= "https://images.vexels.com/media/users/3/131076/isolated/preview/ebced5a599e83593ec0237556526803a-taza-caliente-de-t-icono-by-vexels.png" width="40" > please
         <span class="txt-rotate" data-period="2000" data-rotate= '["T(ea) please!", "of my FAVORITE things"]'></span>
@@ -29,39 +32,41 @@
 Create post</a>
 
     <div>
-        {% for post in posts %}
+    {% paginate posts %}
+    {% for post in posts %}
+        
+        {% if post.link %} 
+            <h3><a href="{{ post.link }}">{{ post.title }}</a></h3>
+        {% else %}
             
-            {% if post.link %} 
-                <h3><a href="{{ post.link }}">{{ post.title }}</a></h3>
-            {% else %}
-                
-                <h3><a href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a></h3> 
+            <h3><a href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a></h3> 
 
-            {% endif %} 
+        {% endif %} 
 
-                {% if request.user.is_authenticated %}
-                    <form method="POST" action="{% url 'change_favorite' post_id=post.pk%}" class="f4 link grow dib bg-orange">
-                    {% csrf_token %}
-                    <button type="submit">
-                        {% if post in favorite_posts %}
+            {% if request.user.is_authenticated %}
+                <form method="POST" action="{% url 'change_favorite' post_id=post.pk%}" class="f4 link grow dib bg-orange">
+                {% csrf_token %}
+                <button type="submit">
+                    {% if post in favorite_posts %}
 
-                        &#9749; 
-                            
-                        {% else %}
- 
-                        &#128056; 
+                    &#9749; 
                         
-                        {% endif %}
-                    </button>
-                    </form>
-                {% endif %}
+                    {% else %}
 
-            <p>{{ post.author }}</p>
-            <p>{{ post.description }}</p>
-            <p><a href="{% url 'post_detail' slug=post.slug %}">This post has {{ post.comments.count }} comment{{post.comments.count|pluralize}}</a> and {{ post.favorites.count }} favorite{{post.favorites.count|pluralize}} and was created at: {{ post.created_at }}</p>
+                    &#128056; 
+                    
+                    {% endif %}
+                </button>
+                </form>
+            {% endif %}
 
-            
-        {% endfor %}
+        <p>{{ post.author }}</p>
+        <p>{{ post.description }}</p>
+        <p><a href="{% url 'post_detail' slug=post.slug %}">This post has {{ post.comments.count }} comment{{post.comments.count|pluralize}}</a> and {{ post.favorites.count }} favorite{{post.favorites.count|pluralize}} and was created at: {{ post.created_at }}</p>
+
+        
+    {% endfor %}
+    {% show_pages %}
     </div>
 
 {% endblock content %}

@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import django_heroku
 
+from django.conf.global_settings import TEMPLATES
+# TEMPLATES[0]['OPTIONS']['context_processors'].insert(0, 'django.core.context_processors.request')
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -32,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'el_pagination',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,8 +48,7 @@ INSTALLED_APPS = [
     'registration',
     'django_extensions',
     'mimesis',
-
-
+    
     # my apps
     'pile',
 ]
@@ -65,7 +68,7 @@ ROOT_URLCONF = 'apile.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,10 +76,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request', ## For EL-pagination
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'apile.wsgi.application'
 
@@ -164,3 +169,5 @@ MESSAGE_TAGS = {
     messages.WARNING: 'bg-light-blue black pa3 br3 ma3',
     messages.ERROR: 'bg-dark-red white pa3 br3 ma3',
 }
+
+EL_PAGINATION_PER_PAGE = 20
