@@ -21,7 +21,7 @@ class Comment(models.Model):
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
     post = models.ForeignKey(to=Post, on_delete=models.CASCADE, related_name='comments')
     new_comment = models.TextField(max_length=1000)
-    # date_added = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
 
 class Favorite(models.Model):
