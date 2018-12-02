@@ -10,14 +10,14 @@
     <p> {{ post.description }}</p>
     <p>This post has {{ post.comments.count }} comment{{post.comments.count|pluralize}} and {{ post.favorites.count }} favorites</p>
 
-
+    {% if request.user.is_authenticated %}
     <div><form role="form" action="" method="POST">
         {% csrf_token %}
         {{ form }}
         <button type='submit'>Post Comment</button>
         </form>
     </div>
-
+    {% endif %}
     <div>
         {% for comment in comments %}
             <p>{{ comment.created_at }}</p>
