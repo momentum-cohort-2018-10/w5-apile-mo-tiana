@@ -28,6 +28,9 @@
     <h1> Mo' T<img src= "https://images.vexels.com/media/users/3/131076/isolated/preview/ebced5a599e83593ec0237556526803a-taza-caliente-de-t-icono-by-vexels.png" width="40" > please
     </h1> 
     <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'create_post' %}">Create post</a>
+    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'sort_posts' %}">Sort by favorites</a>
+    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'sort_posts' %}">Sort by descending date</a>
+    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'sort_posts' %}">Sort by ascending date</a>
 
     <div>
     {% paginate posts %}{% get_pages %}

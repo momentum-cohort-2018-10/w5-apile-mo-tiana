@@ -40,6 +40,8 @@ urlpatterns = [
 
     path('accounts/create_post/', views.create_post, name='create_post'),
 
+    path('sort_posts/', views.sort_posts, name="sort_posts"),
+
     path('posts/<slug>/', views.post_detail, name='post_detail'),
 
     path('/privacy/', views.privacy, name='privacy'),
@@ -49,6 +51,8 @@ urlpatterns = [
     # path('posts/<slug>/create_comment/', views.create_comment, name='create_comment'),
 
     path('posts/<slug>/edit/', views.edit_post, name="edit_post"),
+
+    # path('posts/<slug>/edit_comment/', views.edit_comment, name="edit_comment"),
 
     path('posts/<int:post_id>/favorite/', views.change_favorite, name="change_favorite"),
 
