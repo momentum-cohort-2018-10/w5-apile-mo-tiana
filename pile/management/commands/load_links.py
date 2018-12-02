@@ -31,7 +31,7 @@ class Command(BaseCommand):
         food = Food('en')
     
 
-        for _ in range(40):
+        for _ in range(100):
             user = User.objects.create_user(person.username(), person.email(), 
                                             'password' )
             users.append(user)
@@ -45,7 +45,7 @@ class Command(BaseCommand):
         
 
         posts = []
-        for i in range(30):
+        for i in range(90):
             post = Post(title=text.title(),
                 author=users[i],
                 link=internet.home_page(),

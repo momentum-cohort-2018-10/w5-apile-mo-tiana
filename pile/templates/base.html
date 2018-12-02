@@ -12,7 +12,7 @@
     </title>
 
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="css/style.css?v=1.126"  />
 <article class="cf ph3 ph5-ns pv5 vh-100 dt w-100">
 
 
@@ -26,15 +26,15 @@
 
 <body class="georgia" >
     <header>
-        <h3>M&T News!</h3>
+
         <nav>
-    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'home' %}">Home</a>
+    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'home' %}"><span>Home</span></a>
     {% if user.is_authenticated %}
-    <p>You are logged in as: {{ user.username }}</p>
-    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'auth_logout' %}">Sign Out</a>
+       <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'auth_logout' %}"><span>Sign Out</span></a>
+       <p class= "dib">  You are logged in as: {{ user.username }}</p> 
     {% else %}
-    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'auth_login' %}">Sign In</a>
-    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'registration_register' %}">Sign Up</a>
+        <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'auth_login' %}"><span>Sign In</span></a>
+        <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'registration_register' %}"><span>Sign Up</span></a></span>
     {% endif %}
 
         </nav>
@@ -43,6 +43,14 @@
         <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
     {% endfor %}
     {% block content %}{% endblock content %}
+<footer class="pv4 ph3 ph5-m ph6-l mid-gray">
+  <small class="f6 db tc">© 2018 <b class="ttu">Mo & Tiana Inc</b>., All Rights Reserved</small>
+  <div class="tc mt3">
+    <a href="{% url 'terms' %}" class="f6 dib ph2 link mid-gray dim">Terms of Use</a>
+    <a href="{% url 'privacy' %}" class="f6 dib ph2 link mid-gray dim">Privacy</a>
+  </div>
+</footer>
+
     {% block footer %}{% endblock footer %}
 </body>
 </article>
