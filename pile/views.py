@@ -46,6 +46,12 @@ def post_detail(request, slug):
      'comments': comments,
      })
 
+def privacy(request):
+     return render(request, 'posts/privacy.html')
+
+def terms(request):
+     return render(request, 'posts/terms.html')
+
 
 @login_required
 def create_post(request):

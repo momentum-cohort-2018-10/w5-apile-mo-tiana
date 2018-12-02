@@ -21,18 +21,16 @@
                     
 
 {% block content %}
-{% comment %} {% load el_pagination_tags %} {% endcomment %}
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <h1> Mo' T<img src= "https://images.vexels.com/media/users/3/131076/isolated/preview/ebced5a599e83593ec0237556526803a-taza-caliente-de-t-icono-by-vexels.png" width="40" > please
-        <span class="txt-rotate" data-period="2000" data-rotate= '["T(ea) please!", "of my FAVORITE things"]'></span>
     </h1> 
-{% comment %} <img src="https://i.kym-cdn.com/entries/icons/original/000/015/878/thatsnoneofmy.jpg" width=700> {% endcomment %}
-    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'create_post' %}">
-Create post</a>
+    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'create_post' %}">Create post</a>
 
     <div>
-    {% paginate posts %}
+    {% paginate posts %}{% get_pages %}
     {% for post in posts %}
         
         {% if post.link %} 
@@ -66,7 +64,44 @@ Create post</a>
 
         
     {% endfor %}
-    {% show_pages %}
+{% comment%} Pagination styling below {% endcomment %}
+
+    <div class="flex items-center justify-center pa4">
+
+        <a href="{{ pages.previous.path }}" class="f5 no-underline black bg-animate hover-bg-black hover-white inline-flex items-center pa3 ba border-box mr4">
+            <svg class="w1" data-icon="chevronLeft" viewBox="0 0 32 32" style="fill:currentcolor">
+                <title>chevronLeft icon</title>
+                <path d="M20 1 L24 5 L14 16 L24 27 L20 31 L6 L6 z"></path>
+            </svg>
+        <span class="pl1">Previous</span>
+    </a>
+    {% for page in pages %}
+    {% if page == None %}
+      <div class="page-item disabled">
+        <a class="page-link" href="#" aria-label="...">
+          <span aria-hidden="true">...</span>
+          <span class="sr-only">...</span>
+        </a>
+      </div>
+    {% else %}
+      <div class="page-link {% if page.is_current %} active items-center justify-center br1 pa0 f0 ph0 pv0 mb0 white bg-light-purple {% endif %}">
+        <a class="page-link f5 items-center justify-center no-underline black bg-animate hover-bg-black hover-white inline-flex items-center pa3 ba border-box mr4" href="{{ page.path }}" aria-label="Page {{page.number}}">
+          <span aria-hidden="true">{{ page.label|safe }}</span>
+        </a>
+      </div>
+    {% endif %}
+  {% endfor %} 
+    <a href="{{ pages.next.path }}" class="f5 no-underline black bg-animate hover-bg-black hover-white inline-flex items-center pa3 ba border-box mr4">
+        <span class="pr1">Next</span>
+            <svg class="w1" data-icon="chevronRight" viewBox="0 0 32 32" style="fill:currentcolor">
+                <title>chevronRight icon</title>
+                <path d="M12 1 L26 16 L12 31 L8 27 L18 16 L8 5 z"></path>
+            </svg>
+        </a>
     </div>
+    <div class="flex items-center justify-center pa4">
+     <p>Showing {{ pages.current_start_index }}-{{ pages.current_end_index }} of {{ pages.total_count }} posts </p></div>
+
+</div>
 
 {% endblock content %}
