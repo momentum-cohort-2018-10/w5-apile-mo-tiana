@@ -13,36 +13,49 @@ from pile.forms import PostForm, CommentForm
 # Create your views here.
 def index(request):
      posts = Post.objects.all()
-     posts = posts.annotate(num_of_favorites=Count('favorites'))
-     num_of_favorites = Count('favorites')
+     posts = posts.annotate(num_of_favorites=Count('favorites')).order_by('-num_of_favorites', '-created_at')
+     # num_of_favorites = Count('favorites')
 
      favorites = Favorite.objects.all()
      favorite_posts = []
      if request.user.is_authenticated:
           favorite_posts = request.user.favorite_posts.all()
-     posts= posts.order_by('-num_of_favorites')
+          # posts = posts.order_by('-num_of_favorites')
+     # if request.method == "POST":
+     #      if posts.order_by('-num_of_favorites'):
+     #           posts = posts.order_by('-num_of_favorites')
+     # else:
+          # posts = posts.order_by('-created_at')
+     # comments = posts.order_by('-created_at')
      return render(request, 'index.html', {
          'posts': posts,
          'favorites': favorites,
          'favorite_posts': favorite_posts,
      })
 
-def post_detail(request, slug):
+def post_detail(request, slug):    
      post = Post.objects.get(slug=slug)
-     if request.method == "POST":
-          form = CommentForm(request.POST)
-          if form.is_valid:
-               comment = form.save(commit=False)
-               comment.author = request.user
-               comment.post = post
-               comment.save()
-               return redirect("post_detail", slug=slug)
-     else:
-          form = CommentForm()
      comments = post.comments.order_by('-created_at')
-     return render(request, 'posts/post_detail.html', {
+     if request.user.is_authenticated:
+          if request.method == "POST":
+               form = CommentForm(request.POST)
+               if form.is_valid:
+                    comment = form.save(commit=False)
+                    comment.author = request.user
+                    comment.post = post
+                    comment.save()
+                    return redirect("post_detail", slug=slug)
+          else:
+               form = CommentForm()
+               return render(request, 'posts/post_detail.html', {
+               'post': post,
+               'form': CommentForm(),
+               'comments': comments,
+               })
+     else:         
+          return render(request, 'posts/post_detail.html', {
      'post': post,
-     'form': CommentForm(),
+     # 'form': CommentForm(),
      'comments': comments,
      })
 
