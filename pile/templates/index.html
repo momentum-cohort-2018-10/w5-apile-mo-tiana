@@ -18,39 +18,64 @@
 
 <header class="georgia">
     <div class="cover bg-left bg-center-1" style="background-image: url(https://i.kym-cdn.com/entries/icons/original/000/015/878/thatsnoneofmy.jpg")>
+           <div class="bg-black-20 pb3 pb3-m pb3-l">
+            <nav class="dt w-100 mw8 center"> 
+            <div class="pa3">
+            {% comment %}
+        
+        </div>
        <nav class="dt w-100 mw8 center"> 
        <div class="dtc w2 v-mid pa3">
-       <div class="dtc v-mid tr pa3"> 
-        <div class="tc-1 mt4 mt5-m mt6-1 ph3">
+       <div class="dtc v-mid tr pa3">  {% endcomment %}
 
-        <h1 class="f2 f1-1 fw2 white-90 mb0 lh-title">Mo T'<img src= "https://images.vexels.com/media/users/3/131076/isolated/preview/ebced5a599e83593ec0237556526803a-taza-caliente-de-t-icono-by-vexels.png" width="40" class="white" > please!</h1>
-        <h2 class="fw1 f3 white-80 mt3 mb4">Your place for all the HOTTEST gossip</h2>
-        <a class="f4 link grow ph2 pv2 mb2 dib white bg-gold" href="{% url 'create_post' %}">Spill The Tea</a>
-                <span class="dib v-mid ph3 white-70 mb3">or</span>
-        <a class="f4 link grow ph2 pv2 mb2 dib white bg-gold" href="{% url 'sort_created_ascending' %}">Sort By Brew Date</a>
+     <nav>
+         <div class="flex items-center justify-center pa0">
+           <a class="f5 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="{% url 'home' %}"><span>Home</span></a>
+    {% if user.is_authenticated %}
+       <p class= "f5 green pa0 bg-white fw4 dn dib-ns pv1 ph1">  You are logged in as: {{ user.username }}</p> 
+       <a class="f5 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="{% url 'auth_logout' %}"><span>Sign Out</span></a><div>
+       
+    {% else %}
+        <a class="f5 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="{% url 'auth_login' %}"><span>Sign In</span></a>
+        <a class="f5 link grow ph2 pv2 mb2 dib white bg-gold" href="{% url 'registration_register' %}"><span>Sign Up</span></a></span></div>
+    {% endif %}
+
+        </nav> 
+        </div>
+        <div class="tc-1 mt4 mt5-m mt6-1 ph1">
+        <div class="flex items-center justify-center pa0">
+        <h1 class="f2 f1-1 fw2 white mb0 lh-title">Mo'   T&#9749;, please!</h1>
+        </div>
+        <div class="flex items-center justify-center pa0">
+        <h2 class="fw1 f3 white mt3 mb4">Your place for all the HOTTEST gossip</h2>
+        </div>
+        <div class="flex items-center justify-center pa0">
+        <a class="f4 link grow ph2 pv2 mb2 dib white bg-green" href="{% url 'create_post' %}">Spill The Tea</a>
+                <span class="dib v-mid ph3 white mb3">or</span>
+        <a class="f4 link grow ph2 pv2 mb2 dib white bg-green" href="{% url 'sort_created_ascending' %}">Sort By Brew Date</a>
         </div>
         </div>
         </div>
+        </div>
+
         </nav>
-    
+   </div> 
 </div>
 </header>
-
+<article class="cf ph3 ph5-ns pv5 vh-100 dt w-100">
+<div class="tc-1 mt4 mt5-m mt6-1 ph1">
+<h3 class=" bg-black-20 pa2 flex items-center justify-center"> &#9749; = This is my cup of tea! (up-vote) |  &#128056; = That's none of my business (no-vote)</h3>
+</div>
+<div>
+</div>
     {% paginate posts %}{% get_pages %}
     {% for post in posts %}
-        
-        {% if post.link %} 
-            <h3><a href="{{ post.link }}">{{ post.title }}</a></h3>
-        {% else %}
-            
-            <h3><a href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a></h3> 
-
-        {% endif %} 
-
-            {% if request.user.is_authenticated %}
+    <div class="container mw5 mw7-ns center pa3 ph2-ns">
+    <div>
+      {% if request.user.is_authenticated %}
                 <form method="POST" action="{% url 'change_favorite' post_id=post.pk%}" class="f4 link grow dib ">
                 {% csrf_token %}
-                <button type="submit">
+                <button class="pa0 bg-white bn" type="submit">
                     {% if post in favorite_posts %}
 
                     &#9749; 
@@ -63,12 +88,24 @@
                 </button>
                 </form>
             {% endif %}
+        {% if post.link %} 
+           <span h3><a class="gold" href="{{ post.link }}">{{ post.title }}</a></span h3></div>
+        {% else %}
+            
+            <span h3><a class="gold" href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a></span h3></div> 
 
-        <p>{{ post.author }}</p>
-        <p>{{ post.description }}</p>
-        <p><a href="{% url 'post_detail' slug=post.slug %}">This post has {{ post.comments.count }} comment{{post.comments.count|pluralize}}</a> and {{ post.favorites.count }} favorite{{post.favorites.count|pluralize}} and was created at: {{ post.created_at }}</p>
+        {% endif %} 
+
+            
 
         
+        <p class="green"> brewed by @{{ post.author }}: <span class="black"> {{ post.description }}</span></p>
+        <p><a href="{% url 'post_detail' slug=post.slug %}">This post has {{ post.comments.count }} comment{{post.comments.count|pluralize}}</a> and {{ post.favorites.count }} favorite{{post.favorites.count|pluralize}} and was created at: {{ post.created_at }}</p>
+
+</ul>
+</div>
+</div>
+     </div>   
     {% endfor %}
 {% comment%} Pagination styling below {% endcomment %}
 
@@ -90,7 +127,7 @@
         </a>
       </div>
     {% else %}
-      <div class="page-item {% if page.is_current %} active pr0 pv0 ph0 bg-light-green dib {% endif %}">
+      <div class="page-item {% if page.is_current %} active pa0 bn pr0 pv0 ph0 bg-green dib {% endif %}">
         <a class="page-link f5 items-center justify-center no-underline black bg-animate hover-bg-black hover-white inline-flex items-center pa3 ba border-box mr4" href="{{ page.path }}" aria-label="Page {{page.number}}">
           <span aria-hidden="true">{{ page.label|safe }}</span>
         </a>
@@ -109,5 +146,5 @@
      <p>Showing {{ pages.current_start_index }}-{{ pages.current_end_index }} of {{ pages.total_count }} posts </p></div>
 
 </div>
-
+</article>
 {% endblock content %}

@@ -5,7 +5,9 @@
 {% endblock title %}
 
 {% block content %}
+
     <h3>Sign In</h3>
+    <div class="cf ph3 ph5-ns pv5 vh-100 dt w-100">
     <form role="form" action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -15,4 +17,6 @@
         Forgot your password?
         </a>
     </p>
+    </div>
 {% endblock content %}
+

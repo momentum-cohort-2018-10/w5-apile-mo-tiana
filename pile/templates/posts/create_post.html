@@ -4,11 +4,20 @@
     Create A Post - {{ block.super }}
 {% endblock title %}
 
+{% block header %}
+        <div class="bg-light-green flex items-center justify-center pa0">
+        <h1 class="f1 f1-1  white mb0 lh-title">Mo'   T&#9749;, please!</h1></div>
+{% endblock header %}
+
 {% block content %}
-    <h3>Create A Post</h3>
-    <form role='form' action='' method='post'>
+<article class="cf bg-light-green ph3 ph5-ns pv5 vh-100 dt w-100">
+<section class="mw5 mw7-ns center bg-light-gray pa3 ph5-ns">
+    <h1 class=" br4 bg-light-green pa2 flex items-center justify-center">Create A Post</h1>
+    
+    <form class="f4 dib pa4 bg-gold br4 flw-third"role='form' action='' method='post'>
         {% csrf_token %}
         {{ form.as_p }}
-        <input type='submit' value="Submit" />
+        <input class="f4 flex items-center justify-center link grow ph2 pv2 mb2 dib white bg-green" type='submit' value="Submit" />
     </form>
+</article>
 {% endblock content %}
