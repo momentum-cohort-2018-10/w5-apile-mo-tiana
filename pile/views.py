@@ -29,7 +29,6 @@ def index(request):
      favorite_posts = []
      if request.user.is_authenticated:
           favorite_posts = request.user.favorite_posts.all()
-
      return render(request, 'index.html', {
          'posts': posts,
          'favorites': favorites,
@@ -70,6 +69,16 @@ def sort_created_ascending(request):
 
 def post_detail(request, slug):    
      post = Post.objects.get(slug=slug)
+     if request.method == "POST":
+          form = CommentForm(request.POST)
+          if form.is_valid:
+               comment = form.save(commit=False)
+               comment.author = request.user
+               comment.post = post
+               comment.save()
+               return redirect("post_detail", slug=slug)
+     else:
+          form = CommentForm()
      comments = post.comments.order_by('-created_at')
      if request.user.is_authenticated:
           if request.method == "POST":
@@ -90,7 +99,7 @@ def post_detail(request, slug):
      else:
           return render(request, 'posts/post_detail.html', {
      'post': post,
-     # 'form': CommentForm(),
+     'form': CommentForm(),
      'comments': comments,
      })
 
@@ -138,40 +147,48 @@ def edit_post(request, slug):
                "form": form,
           })
 
-# def edit_comment(request, slug):
-#      comment = Comment.objects.get(pk=comment_id)
-#      if comment.author != request.user:
-#           raise Http404
+def edit_comment(request, comment_id):
+     # post = Post.objects.get(slug=slug)
+     comment = Comment.objects.get(pk=comment_id)
+     if comment.author != request.user:
+          raise Http404
 
-#      form_class = CommentForm
+     form_class = CommentForm
 
-#      if request.method == 'POST':
-#           form = form_class(data=request.POST, instance=post)
-#           if form.is_valid():
-#                form.save()
-#                return redirect("post_detail", slug=post.slug)
-#      else:
-#           form = form_class(instance=post)
-#           return render(request, 'posts/edit_comment.html', {
-#                "post": post,
-#                "form": form,
-#           })
+     if request.method == 'POST':
+          form = form_class(data=request.POST, instance=comment)
+          if form.is_valid():
+               form.save()
+               message= f"Your comment '{comment}' has been edited."
+               messages.add_message(request, messages.SUCCESS, message)
+               return redirect(f'/#post-{comment.pk}')
+               # return redirect("post_detail", slug=post.slug)
+     else:
+          form = form_class(instance=comment)
+          
+          
+          return render(request, 'posts/edit_comment.html', {
+               "comment": comment.post,
+               "form": form,
+          })
 
-def favorites_list(request):
-     posts = request.user.favorite_posts.all()
-     return render_post_list(request, 'my favorite posts', posts)
+# def favorites_list(request, user):
+#      user = request.user
+#      posts = request.user.favorite_posts.all()
+#      return redirect("post_detail", slug=post.slug)
+#      # return render_post_list(request, 'my favorite posts', posts)
 
-def render_post_list(request, header, posts):
-     posts = posts.annotate(num_of_favorites=Count('favorites'))
-     favorite_posts = []
-     if request.user.is_authenticated:
-          favorite_posts = request.user.favorite_posts.all()
-     posts = posts.orderby('-created_at')
-     return render(request, 'index.html',{
-          "header": header,
-          "posts": posts,
-          "favorite_posts": favorite_posts
-     })
+# def render_post_list(request, header, posts):
+#      posts = posts.annotate(num_of_favorites=Count('favorites'))
+#      favorite_posts = []
+#      if request.user.is_authenticated:
+#           favorite_posts = request.user.favorite_posts.all()
+#      posts = posts.orderby('-created_at')
+#      return render(request, 'index.html',{
+#           "header": header,
+#           "posts": posts,
+#           "favorite_posts": favorite_posts
+#      })
 
 @require_POST
 def change_favorite(request, post_id):
@@ -181,13 +198,11 @@ def change_favorite(request, post_id):
           
           if post in request.user.favorite_posts.all():
                post.favorites.get(user=request.user).delete()
-               message = "That's none of my business"
+              
           
           else: 
                post.favorites.create(user=request.user)
-               message = "This is my cup of tea!"
 
-     messages.add_message(request, messages.INFO, message)
      return redirect(f'/#post-{post.pk}')
 
 def delete_post(request, post_id):
@@ -212,7 +227,7 @@ def delete_comment(request, comment_id):
 
      if request.method == "POST":
           comment.delete()
-          message = f"Your comment has been deleted."
+          message = f"Your comment '{comment}' has been deleted."
           
 
      messages.add_message(request, messages.SUCCESS, message)

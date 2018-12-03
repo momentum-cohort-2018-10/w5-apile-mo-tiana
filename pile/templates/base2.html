@@ -33,36 +33,7 @@
     {% for message in messages %}
         <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
     {% endfor %}
-
-    
-    {% block content %}
-    <nav class="dt w-100 mw8 center"> 
-            <div class="pa3">
-         <nav>
-         <div class="flex items-center justify-center pa0">
-           <a class="f5 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="{% url 'home' %}"><span>Home</span></a>
-    {% if user.is_authenticated %}
-       <p class= "f5 green pa0 bg-white fw4 dn dib-ns pv1 ph1">  You are logged in as: {{ user.username }}</p> 
-       <a class="f5 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="{% url 'auth_logout' %}"><span>Sign Out</span></a><div>
-       
-    {% else %}
-        <a class="f5 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="{% url 'auth_login' %}"><span>Sign In</span></a>
-        <a class="f5 link grow ph2 pv2 mb2 dib white bg-gold" href="{% url 'registration_register' %}"><span>Sign Up</span></a></span></div>
-    {% endif %}
-
-        </nav> 
-    {% endblock content %}
-
-
-            {% comment %}
-        
-        </div>
-       <nav class="dt w-100 mw8 center"> 
-       <div class="dtc w2 v-mid pa3">
-       <div class="dtc v-mid tr pa3">  {% endcomment %}
-
-
-
+    {% block content %}{% endblock content %}
 <footer class="pv4 ph3 ph5-m ph6-l mid-gray">
   <small class="f6 db tc">© 2018 <b class="ttu">Mo & Tiana</b>, All Rights Reserved</small>
   <div class="tc mt3">
@@ -84,4 +55,3 @@
 </article>
 
 </html>
-

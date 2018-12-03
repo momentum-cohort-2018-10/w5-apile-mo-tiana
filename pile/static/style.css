@@ -1,6 +1,7 @@
 body {
     background-color: lightcyan;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-image: url("https://i.kym-cdn.com/entries/icons/original/000/015/878/thatsnoneofmy.jpg");
 
 }
+
+section:nth-of-type(2) {color: purple;}

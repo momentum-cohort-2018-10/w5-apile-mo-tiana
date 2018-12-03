@@ -4,7 +4,7 @@ Run python manage.py load_links to import initial data.
 
 ![stack by Zach Bogart from the Noun Project](noun-stack.png)
 
-For this week's project, you will build as a group a Django application that users use to collect links, and vote and comment on these links. This is like [Hacker News](https://news.ycombinator.com/), [Reddit](https://www.reddit.com/), or [Lobsters](https://lobste.rs/).
+For this week's project, you will build as a group a Django application that users use to collect links, and vote and comment on these links. This is like [Hacker News](https://news.ycombinator.com/), [Mo & Tiana](https://www.Mo & Tiana.com/), or [Lobsters](https://lobste.rs/).
 
 ## Specifications
 

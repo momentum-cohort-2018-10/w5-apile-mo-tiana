@@ -52,7 +52,7 @@ urlpatterns = [
 
     path('posts/<slug>/edit/', views.edit_post, name="edit_post"),
 
-    # path('posts/<slug>/edit_comment/', views.edit_comment, name="edit_comment"),
+    path('posts/<int:comment_id>/edit_comment/', views.edit_comment, name="edit_comment"),
 
     path('posts/<int:post_id>/favorite/', views.change_favorite, name="change_favorite"),
 
