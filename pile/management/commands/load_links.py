@@ -19,7 +19,7 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        from pile.models import Post, Favorite
+        from pile.models import Post, Favorite, Comment
         from django.contrib.auth.models import User
         from mimesis import Person, Text, Internet, Food
         
@@ -96,15 +96,29 @@ class Command(BaseCommand):
         #     initial_posts.append(post)
         # print("Posts loaded!")
 
+        Favorite.objects.all().delete()
+        for i in range(90):
+            Favorite.objects.create(post=posts[randint(11, 89)], user=users[i])
+
+        # for i in range(90):
+        #     Favorite.objects.create(post=posts[randint(11, 89)], user=users[randint(11, 89)])
+
+        print("Favorites added!")
+
+        Comment.objects.all().delete()
+        for i in range(90):
+            Comment.objects.create(new_comment=text.quote(), post=posts[randint(5, 89)], author=users[i])
+        print("Comments added!")
 
         # Favorite.objects.all().delete()
-        # Favorite.objects.create(post=posts[0], user=users[0])
-        # Favorite.objects.create(post=posts[0], user=users[1])
-        # Favorite.objects.create(post=posts[0], user=users[2])
-        # Favorite.objects.create(post=posts[0], user=users[3])
-        # Favorite.objects.create(post=posts[1], user=users[0])
-        # Favorite.objects.create(post=posts[1], user=users[1])
-        # Favorite.objects.create(post=posts[2], user=users[0])
-        # Favorite.objects.create(post=posts[2], user=users[1])
-        # Favorite.objects.create(post=posts[2], user=users[2])
-        # print("Favorites added!")
+        # for i in posts:
+        #     Favorite.objects.create(post=posts[i], user=users[i])
+        #     Favorite.objects.create(post=posts[i], user=users[i])
+        #     Favorite.objects.create(post=posts[i], user=users[2])
+        #     Favorite.objects.create(post=posts[i], user=users[3])
+        #     Favorite.objects.create(post=posts[i], user=users[i])
+        #     Favorite.objects.create(post=posts[i], user=users[1])
+        #     Favorite.objects.create(post=posts[i], user=users[0])
+        #     Favorite.objects.create(post=posts[i], user=users[1])
+        #     Favorite.objects.create(post=posts[i], user=users[2])
+        #     print("Favorites added!")
