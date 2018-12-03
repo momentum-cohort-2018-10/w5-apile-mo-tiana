@@ -1,3 +1,5 @@
+Run python manage.py load_links to import initial data.
+
 # Apile
 
 ![stack by Zach Bogart from the Noun Project](noun-stack.png)
