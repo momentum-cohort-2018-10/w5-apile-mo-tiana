@@ -1,0 +1,57 @@
+{% load staticfiles %}
+
+<!doctype html> 
+<html>
+<head>
+
+    <title>
+        {% block title%}
+
+
+        {% endblock title%}
+    </title>
+
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+    <link rel="stylesheet" href="css/style.css?v=1.132"  />
+
+
+
+    {% block header %}
+
+
+
+    {% endblock header %}
+</head>
+
+
+<body class="georgia" >
+    <header>
+
+
+
+    </header>
+    {% for message in messages %}
+        <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock content %}
+<footer class="pv4 ph3 ph5-m ph6-l mid-gray">
+  <small class="f6 db tc">© 2018 <b class="ttu">Mo & Tiana</b>, All Rights Reserved</small>
+  <div class="tc mt3">
+    <a href="{% url 'terms' %}" class="f6 dib ph2 link mid-gray dim">Terms of Use</a>
+    <a href="{% url 'privacy' %}" class="f6 dib ph2 link mid-gray dim">Privacy</a>
+    <a class="f6 dib ph2 link mid-gray dim" href="{% url 'home' %}"><span>Home</span></a>
+    {% if user.is_authenticated %}
+       <a class="f6 dib ph2 link mid-gray dim" href="{% url 'auth_logout' %}"><span>Sign Out</span></a>
+       <p class= "dib">  You are logged in as: {{ user.username }}</p> 
+    {% else %}
+        <a class="f6 dib ph2 link mid-gray dim" href="{% url 'auth_login' %}"><span>Sign In</span></a>
+        <a class="f6 dib ph2 link mid-gray dim" href="{% url 'registration_register' %}"><span>Sign Up</span></a></span>
+    {% endif %}
+  </div>
+</footer>
+
+    {% block footer %}{% endblock footer %}
+</body>
+</article>
+
+</html>
