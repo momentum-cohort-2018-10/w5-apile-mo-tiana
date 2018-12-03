@@ -23,12 +23,17 @@
             <p>{{ comment.created_at }}</p>
             <p>{{ comment.new_comment }}</p>
             <p>{{ comment.author }}</p>
-            {% if user == comment.author %}
+            {% comment %} {% if user == comment.author %}
+                <p><a href="{% url 'edit_comment' slug=post.slug %}">
+                Edit Comment!
+                </a></p>
+                <button type="submit">Edit Comment</button> {% endcomment %}
+
             <form method="POST" action="{% url 'delete_comment' comment_id=comment.pk%}" class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple">
                 {% csrf_token %}
             <button type="submit">Delete Comment</button>
             </form>
-            {% endif %}
+            {% comment %} {% endif %} {% endcomment %}
         {% endfor %}
     {% if user == post.author %}
         <p>

@@ -9,29 +9,64 @@ from django.contrib.auth import authenticate, login
 from django.db.models import Count
 from django.contrib import messages
 from pile.forms import PostForm, CommentForm
+from random import randint
 
 # Create your views here.
 def index(request):
      posts = Post.objects.all()
      posts = posts.annotate(num_of_favorites=Count('favorites')).order_by('-num_of_favorites', '-created_at')
-     # num_of_favorites = Count('favorites')
+
+     # if request.method == "GET":
+     #      if request.GET == "num_of_favorites":
+     #           posts = posts.order_by('-num_of_favorites')
+     #      elif request.GET == "date-ascending":
+     #           posts = posts.order_by('created_at')
+     #      elif request.GET == "date-descending":
+     #           posts = posts.order_by('-created_at')
+
 
      favorites = Favorite.objects.all()
      favorite_posts = []
      if request.user.is_authenticated:
           favorite_posts = request.user.favorite_posts.all()
-          # posts = posts.order_by('-num_of_favorites')
-     # if request.method == "POST":
-     #      if posts.order_by('-num_of_favorites'):
-     #           posts = posts.order_by('-num_of_favorites')
-     # else:
-          # posts = posts.order_by('-created_at')
-     # comments = posts.order_by('-created_at')
+
      return render(request, 'index.html', {
          'posts': posts,
          'favorites': favorites,
          'favorite_posts': favorite_posts,
      })
+
+def sort_created_ascending(request):
+     posts = Post.objects.all()
+     posts = posts.annotate(num_of_favorites=Count('favorites'))
+     posts = posts.order_by('-created_at')
+
+     favorites = Favorite.objects.all()
+     favorite_posts = []
+     if request.user.is_authenticated:
+          favorite_posts = request.user.favorite_posts.all()
+
+     return render(request, 'sort_created_ascending.html', {
+         'posts': posts,
+         'favorites': favorites,
+         'favorite_posts': favorite_posts,
+     })
+
+# def sort_posts(request):
+#      posts = Post.objects.all()
+#      if request.method == "GET":
+#           if request.GET == "num_of_favorites":
+#                posts = posts.order_by('-num_of_favorites')
+#           elif request.GET == "date-ascending":
+#                posts = posts.order_by('created_at')
+#           elif request.GET == "date-descending":
+#                posts = posts.order_by('-created_at')
+
+#      return render(request, 'index.html', {
+#      'posts': posts,
+#      'favorites': favorites,
+#      'favorite_posts': favorite_posts,
+# })                                                                  
 
 def post_detail(request, slug):    
      post = Post.objects.get(slug=slug)
@@ -52,7 +87,7 @@ def post_detail(request, slug):
                'form': CommentForm(),
                'comments': comments,
                })
-     else:         
+     else:
           return render(request, 'posts/post_detail.html', {
      'post': post,
      # 'form': CommentForm(),
@@ -103,6 +138,24 @@ def edit_post(request, slug):
                "form": form,
           })
 
+# def edit_comment(request, slug):
+#      comment = Comment.objects.get(pk=comment_id)
+#      if comment.author != request.user:
+#           raise Http404
+
+#      form_class = CommentForm
+
+#      if request.method == 'POST':
+#           form = form_class(data=request.POST, instance=post)
+#           if form.is_valid():
+#                form.save()
+#                return redirect("post_detail", slug=post.slug)
+#      else:
+#           form = form_class(instance=post)
+#           return render(request, 'posts/edit_comment.html', {
+#                "post": post,
+#                "form": form,
+#           })
 
 def favorites_list(request):
      posts = request.user.favorite_posts.all()
