@@ -27,6 +27,8 @@ from django.contrib.auth.views import (PasswordResetView, PasswordResetConfirmVi
 
 urlpatterns = [
     path('', views.index, name='home'),
+
+    path('posts/sort_created_ascending/', views.sort_created_ascending, name='sort_created_ascending'),
    
     path('accounts/password/reset/', PasswordResetView.as_view (template_name='registration/password_reset_form.html'), name="password_reset_form"),
 
@@ -49,6 +51,8 @@ urlpatterns = [
     # path('posts/<slug>/create_comment/', views.create_comment, name='create_comment'),
 
     path('posts/<slug>/edit/', views.edit_post, name="edit_post"),
+
+    # path('posts/<slug>/edit_comment/', views.edit_comment, name="edit_comment"),
 
     path('posts/<int:post_id>/favorite/', views.change_favorite, name="change_favorite"),
 

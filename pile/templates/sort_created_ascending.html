@@ -6,34 +6,15 @@
     Home - {{ block.super }}
 {% endblock title %}
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-{% block header %}
-
-{% endblock header %}             
-                    
-
-{% block content %}
-
-
-
-
 <header class="georgia">
     <div class="cover bg-left bg-center-1" style="background-image: url(https://i.kym-cdn.com/entries/icons/original/000/015/878/thatsnoneofmy.jpg")>
-       <nav class="dt w-100 mw8 center"> 
-       <div class="dtc w2 v-mid pa3">
-       <div class="dtc v-mid tr pa3"> 
+        <div class="bg-black-80 pb5 pb6-m pb7-1">
         <div class="tc-1 mt4 mt5-m mt6-1 ph3">
-
-        <h1 class="f2 f1-1 fw2 white-90 mb0 lh-title">Mo T'<img src= "https://images.vexels.com/media/users/3/131076/isolated/preview/ebced5a599e83593ec0237556526803a-taza-caliente-de-t-icono-by-vexels.png" width="40" class="white" > please!</h1>
-        <h2 class="fw1 f3 white-80 mt3 mb4">Your place for all the HOTTEST gossip</h2>
-        <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-green" href="{% url 'create_post' %}">Spill The Tea</a>
+        <h1 class="f2 f1-1 fw2 white-90 mb0 lh-title">Mo T' please!</h1>
+        <h2 class="fw1 f3 white-80 mt3 mb4">Spill the tea or take a sip of our blends</h2>
+        <a class="f6 no-underline grow dib v-mid bg-blue white ba b--blue ph3 pv2 mb3" href="{% url 'create_post' %}">Spill The Tea</a>
         </div>
         </div>
-        </div>
-        </nav>
-    
 </div>
 </header>
                 
@@ -46,11 +27,12 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <h1> Mo' T<img src= "https://images.vexels.com/media/users/3/131076/isolated/preview/ebced5a599e83593ec0237556526803a-taza-caliente-de-t-icono-by-vexels.png" width="40" > please
     </h1> 
-<div>
+    <div>
     <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'create_post' %}">Create post</a>
-    <button><a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'sort_created_ascending' %}">Sort by ascending date</a>
-</div>
+    <button><a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'home' %}">Sort by popularity</a>
+    </div>
 
+    <div>
     {% paginate posts %}{% get_pages %}
     {% for post in posts %}
         
@@ -63,7 +45,7 @@
         {% endif %} 
 
             {% if request.user.is_authenticated %}
-                <form method="POST" action="{% url 'change_favorite' post_id=post.pk%}" class="f4 link grow dib ">
+                <form method="POST" action="{% url 'change_favorite' post_id=post.pk%}" class="f4 link grow dib bg-orange">
                 {% csrf_token %}
                 <button type="submit">
                     {% if post in favorite_posts %}
@@ -105,7 +87,7 @@
         </a>
       </div>
     {% else %}
-      <div class="page-item {% if page.is_current %} active pr0 pv0 ph0 bg-light-green dib {% endif %}">
+      <div class="page-link {% if page.is_current %} active items-center justify-center br1 pa0 f0 ph0 pv0 mb0 white bg-light-purple {% endif %}">
         <a class="page-link f5 items-center justify-center no-underline black bg-animate hover-bg-black hover-white inline-flex items-center pa3 ba border-box mr4" href="{{ page.path }}" aria-label="Page {{page.number}}">
           <span aria-hidden="true">{{ page.label|safe }}</span>
         </a>
