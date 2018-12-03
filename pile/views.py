@@ -218,10 +218,10 @@ def delete_post(request, post_id):
      messages.add_message(request, messages.SUCCESS, message)
      return redirect(f'/#post-{post.pk}')
 
-def delete_comment(request, id):
-     post = Post.objects.get(id=id)
-     comment = Comment.objects.get(id=id)
-     comment.post = post
+def delete_comment(request, comment_id):
+     # post = Post.objects.get(slug=slug)
+     comment = Comment.objects.get(pk=comment_id)
+     # comment.post = post
      if comment.author != request.user:
           raise Http404
 
@@ -231,5 +231,5 @@ def delete_comment(request, id):
           
 
      messages.add_message(request, messages.SUCCESS, message)
-     return redirect("post_detail", id=id)
+     return redirect(f'/#post-{comment.pk}')
 

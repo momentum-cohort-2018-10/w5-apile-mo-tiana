@@ -19,7 +19,7 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        from pile.models import Post, Favorite
+        from pile.models import Post, Favorite, Comment
         from django.contrib.auth.models import User
         from mimesis import Person, Text, Internet, Food
         
@@ -98,9 +98,17 @@ class Command(BaseCommand):
 
         Favorite.objects.all().delete()
         for i in range(90):
-            Favorite.objects.create(post=posts[randint(7, 50)], user=users[i])
+            Favorite.objects.create(post=posts[randint(11, 89)], user=users[i])
 
-            print("Favorites added!")
+        # for i in range(90):
+        #     Favorite.objects.create(post=posts[randint(11, 89)], user=users[randint(11, 89)])
+
+        print("Favorites added!")
+
+        Comment.objects.all().delete()
+        for i in range(90):
+            Comment.objects.create(new_comment=text.quote(), post=posts[randint(5, 89)], author=users[i])
+        print("Comments added!")
 
         # Favorite.objects.all().delete()
         # for i in posts:
