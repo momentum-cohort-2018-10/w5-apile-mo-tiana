@@ -4,17 +4,40 @@
     {{ post.title }} - {{ block.super }}
 {% endblock title %}
 
+{% block header %}
+
+
+{% endblock header %}
+
 {% block content %}
     <h3><a href="{{ post.link }}">{{ post.title }}</a></h3>
     <p> Author: {{ post.author }}</p>
     <p> {{ post.description }}</p>
     <p>This post has {{ post.comments.count }} comment{{post.comments.count|pluralize}} and {{ post.favorites.count }} favorites</p>
+    {% if user == post.author %}
+        <p>
+            <a href="{% url 'edit_post' slug=post.slug %}">
+            Edit Post!
+            </a>
+        </p>
+            <form method="POST" action="{% url 'delete_post' post_id=post.pk %}">
+                {% csrf_token %}
+            <button type="submit">Delete Post</button>
+            </form>
+        <p>
 
+        </p>
+    {% endif %}
     {% if request.user.is_authenticated %}
-    <div><form role="form" action="" method="POST">
+    <div><form class="pa4 black-80" role="form" action="" method="POST">
+        <div>
+        <label for="comment" class="f6 b db mb2">New Comment: <span class="normal black-60">(optional)</span></label>
+        </div>
         {% csrf_token %}
         {{ form }}
-        <button type='submit'>Post Comment</button>
+        <div>
+        <button class="f5 items-center justify-center no-underline black bg-animate hover-bg-black hover-white inline-flex items-center pa3 ba border-box mr4" type='submit'>Post Comment</button>
+        </div>
         </form>
     </div>
     {% endif %}
@@ -24,26 +47,13 @@
             <p>{{ comment.new_comment }}</p>
             <p>{{ comment.author }}</p>
             {% if user == comment.author %}
-            <form method="POST" action="{% url 'delete_comment' comment_id=comment.pk%}" class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple">
+            <form method="POST" action="{% url 'delete_comment' comment_id=comment.pk%}" class=" light-green">
                 {% csrf_token %}
             <button type="submit">Delete Comment</button>
             </form>
             {% endif %}
         {% endfor %}
-    {% if user == post.author %}
-        <p>
-            <a href="{% url 'edit_post' slug=post.slug %}">
-            Edit Post!
-            </a>
-        </p>
-            <form method="POST" action="{% url 'delete_post' post_id=post.pk %}" class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple">
-                {% csrf_token %}
-            <button type="submit">Delete Post</button>
-            </form>
-        <p>
-
-        </p>
-    {% endif %}
+    
 {% endblock content %}
 
     

@@ -27,7 +27,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <h1> Mo' T<img src= "https://images.vexels.com/media/users/3/131076/isolated/preview/ebced5a599e83593ec0237556526803a-taza-caliente-de-t-icono-by-vexels.png" width="40" > please
     </h1> 
-    <a class="f4 link grow ph2 pv2 mb2 dib white bg-light-purple" href="{% url 'create_post' %}">Create post</a>
+    <a class="f5 items-center justify-center no-underline black bg-animate hover-bg-light-green hover-white inline-flex items-center pa3 ba border-box mr4" href="{% url 'create_post' %}">Create post</a>
 
     <div>
     {% paginate posts %}{% get_pages %}
@@ -42,7 +42,7 @@
         {% endif %} 
 
             {% if request.user.is_authenticated %}
-                <form method="POST" action="{% url 'change_favorite' post_id=post.pk%}" class="f4 link grow dib bg-orange">
+                <form method="POST" action="{% url 'change_favorite' post_id=post.pk%}" class="f4 link grow dib ">
                 {% csrf_token %}
                 <button type="submit">
                     {% if post in favorite_posts %}
@@ -84,7 +84,7 @@
         </a>
       </div>
     {% else %}
-      <div class="page-link {% if page.is_current %} active items-center justify-center br1 pa0 f0 ph0 pv0 mb0 white bg-light-purple {% endif %}">
+      <div class="page-item {% if page.is_current %} active pr0 pv0 ph0 bg-light-green dib {% endif %}">
         <a class="page-link f5 items-center justify-center no-underline black bg-animate hover-bg-black hover-white inline-flex items-center pa3 ba border-box mr4" href="{{ page.path }}" aria-label="Page {{page.number}}">
           <span aria-hidden="true">{{ page.label|safe }}</span>
         </a>

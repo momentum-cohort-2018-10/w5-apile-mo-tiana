@@ -42,9 +42,9 @@ urlpatterns = [
 
     path('posts/<slug>/', views.post_detail, name='post_detail'),
 
-    path('/privacy/', views.privacy, name='privacy'),
+    path('privacy/', views.privacy, name='privacy'),
 
-    path('/terms/', views.terms, name='terms'),
+    path('terms/', views.terms, name='terms'),
 
     # path('posts/<slug>/create_comment/', views.create_comment, name='create_comment'),
 
