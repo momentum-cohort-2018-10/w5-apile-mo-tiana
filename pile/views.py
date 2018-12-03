@@ -15,40 +15,58 @@ from random import randint
 def index(request):
      posts = Post.objects.all()
      posts = posts.annotate(num_of_favorites=Count('favorites')).order_by('-num_of_favorites', '-created_at')
-     # num_of_favorites = Count('favorites')
+
+     # if request.method == "GET":
+     #      if request.GET == "num_of_favorites":
+     #           posts = posts.order_by('-num_of_favorites')
+     #      elif request.GET == "date-ascending":
+     #           posts = posts.order_by('created_at')
+     #      elif request.GET == "date-descending":
+     #           posts = posts.order_by('-created_at')
+
 
      favorites = Favorite.objects.all()
      favorite_posts = []
      if request.user.is_authenticated:
           favorite_posts = request.user.favorite_posts.all()
-          # posts = posts.order_by('-num_of_favorites')
-     # if request.method == "POST":
-     #      if posts.order_by('-num_of_favorites'):
-     #           posts = posts.order_by('-num_of_favorites')
-     # else:
-          # posts = posts.order_by('-created_at')
-     # comments = posts.order_by('-created_at')
+
      return render(request, 'index.html', {
          'posts': posts,
          'favorites': favorites,
          'favorite_posts': favorite_posts,
      })
 
-def sort_posts(request):
+def sort_created_ascending(request):
      posts = Post.objects.all()
-     if request.method == "GET":
-          if request.GET == "num_of_favorites":
-               posts = posts.order_by('-num_of_favorites')
-          elif request.GET == "date-ascending":
-               posts = posts.order_by('created_at')
-          elif request.GET == "date-descending":
-               posts = posts.order_by('-created_at')
+     posts = posts.annotate(num_of_favorites=Count('favorites'))
+     posts = posts.order_by('-created_at')
 
-     return render(request, 'index.html', {
-     'posts': posts,
-     'favorites': favorites,
-     'favorite_posts': favorite_posts,
-})                                                                  
+     favorites = Favorite.objects.all()
+     favorite_posts = []
+     if request.user.is_authenticated:
+          favorite_posts = request.user.favorite_posts.all()
+
+     return render(request, 'sort_created_ascending.html', {
+         'posts': posts,
+         'favorites': favorites,
+         'favorite_posts': favorite_posts,
+     })
+
+# def sort_posts(request):
+#      posts = Post.objects.all()
+#      if request.method == "GET":
+#           if request.GET == "num_of_favorites":
+#                posts = posts.order_by('-num_of_favorites')
+#           elif request.GET == "date-ascending":
+#                posts = posts.order_by('created_at')
+#           elif request.GET == "date-descending":
+#                posts = posts.order_by('-created_at')
+
+#      return render(request, 'index.html', {
+#      'posts': posts,
+#      'favorites': favorites,
+#      'favorite_posts': favorite_posts,
+# })                                                                  
 
 def post_detail(request, slug):    
      post = Post.objects.get(slug=slug)
