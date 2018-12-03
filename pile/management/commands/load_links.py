@@ -96,15 +96,21 @@ class Command(BaseCommand):
         #     initial_posts.append(post)
         # print("Posts loaded!")
 
+        Favorite.objects.all().delete()
+        for i in range(90):
+            Favorite.objects.create(post=posts[randint(7, 50)], user=users[i])
+
+            print("Favorites added!")
 
         # Favorite.objects.all().delete()
-        # Favorite.objects.create(post=posts[0], user=users[0])
-        # Favorite.objects.create(post=posts[0], user=users[1])
-        # Favorite.objects.create(post=posts[0], user=users[2])
-        # Favorite.objects.create(post=posts[0], user=users[3])
-        # Favorite.objects.create(post=posts[1], user=users[0])
-        # Favorite.objects.create(post=posts[1], user=users[1])
-        # Favorite.objects.create(post=posts[2], user=users[0])
-        # Favorite.objects.create(post=posts[2], user=users[1])
-        # Favorite.objects.create(post=posts[2], user=users[2])
-        # print("Favorites added!")
+        # for i in posts:
+        #     Favorite.objects.create(post=posts[i], user=users[i])
+        #     Favorite.objects.create(post=posts[i], user=users[i])
+        #     Favorite.objects.create(post=posts[i], user=users[2])
+        #     Favorite.objects.create(post=posts[i], user=users[3])
+        #     Favorite.objects.create(post=posts[i], user=users[i])
+        #     Favorite.objects.create(post=posts[i], user=users[1])
+        #     Favorite.objects.create(post=posts[i], user=users[0])
+        #     Favorite.objects.create(post=posts[i], user=users[1])
+        #     Favorite.objects.create(post=posts[i], user=users[2])
+        #     print("Favorites added!")

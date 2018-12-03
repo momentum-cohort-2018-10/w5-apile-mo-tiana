@@ -71,7 +71,7 @@
             Edit Comment!
             </a></p>
 
-            <form method="POST" action="{% url 'delete_comment' comment_id=comment.pk%}">
+            <form method="POST" action="{% url 'delete_comment' id=id %}">
                 {% csrf_token %}
             <button class="f7 link grow bg-green" type="submit"><span>Delete Comment</span></button>
             </form>
